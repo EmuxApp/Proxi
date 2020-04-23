@@ -14,11 +14,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="shortcut icon" href="media/proxi.png">
         <link rel="stylesheet" href="lib/font.css">
+        <link rel="stylesheet" href="lib/mapbox-gl.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
+        <script src="lib/mapbox-gl.js"></script>
         <script src="core.js"></script>
         <script src="lang.js"></script>
         <script src="screens.js"></script>
+        <script src="map.js"></script>
         <script src="lang/en_GB.js"></script>
     </head>
     <body>
@@ -52,6 +55,7 @@
                 <button onclick="screens.moveBack('map', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>Map</span>
             </nav>
+            <div id="mapContent"></div>
         </main>
         <footer>
             <a href="javascript:screens.switch('home');" class="selected" data-screen="home">

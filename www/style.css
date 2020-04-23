@@ -222,6 +222,16 @@ footer a span {
     font-size: 12px;
 }
 
+div.content {
+    position: absolute;
+    top: 60px;
+    width: 100vw;
+    height: calc(100vh - 40px - 50px);
+    margin: -20px;
+    padding: 20px;
+    overflow: auto;
+}
+
 section.options button {
     width: 100%;
     margin-top: 0;
@@ -349,4 +359,12 @@ button.blue {
 
 [dir="rtl"] .flippable {
     transform: rotateY(180deg);
+}
+
+#mapContent {
+    position: absolute;
+    top: 60px;
+    width: 100vw;
+    height: calc(100vh - 40px - 50px);
+    margin: -20px;
 }
