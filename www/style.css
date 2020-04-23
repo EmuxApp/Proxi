@@ -655,3 +655,33 @@ progress.blue::-webkit-progress-value {
 #mapInfo span:last-child {
     text-align: end;
 }
+
+#loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 30vh;
+    padding-bottom: 30vh;
+    background-color: var(--light);
+    color: var(--lightText);
+    text-align: center;
+}
+
+#loader img {
+    height: 20vh;
+}
+
+#loader h1 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 48px;
+}
+
+#loader p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
