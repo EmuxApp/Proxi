@@ -1,0 +1,268 @@
+/*
+    Proxi
+    Copyright (C) Emux Technologies. All Rights Reserved.
+    https://emux.app
+    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+*/
+
+:root {
+    --background: white;
+    --text: black;
+    --light: #e8eef2;
+    --lightText: black;
+    --dark: #373f51;
+    --darkText: white;
+    --red: #f75590;
+    --redText: white;
+    --green: #10ffcb;
+    --greenText: black;
+    --blue: #20a4f3;
+    --blueText: white;
+}
+
+html, body {
+    display: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background);
+    color: var(--text);
+    font-family: "Lato", sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    font-family: inherit;
+}
+
+*:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+nav {
+    height: 40px;
+}
+
+main {
+    width: 100vw;
+    height: calc(100vh - 40px - 50px);
+    padding: 20px;
+    overflow: auto;
+}
+
+main.noNav {
+    height: calc(100vh - 50px);
+}
+
+header {
+    text-align: center;
+}
+
+header.home {
+    margin-bottom: 30px;
+}
+
+header.home h1 {
+    margin-bottom: 0;
+}
+
+header.home p.tagline {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+header.home button.alerts {
+    background-color: var(--light);
+    color: var(--lightText);
+    font-size: 100px;
+    border-radius: 100px;
+}
+
+header.home button.alerts icon {
+    position: relative;
+    top: 10px;
+}
+
+header.home p.alertsStatus {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    height: 50px;
+    background-color: var(--light);
+}
+
+footer a {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 5px;
+    color: var(--text);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+footer a.selected {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+footer a.selected:active {
+    color: var(--text);
+}
+
+footer a:not(.selected) {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+footer a:not(.selected):active {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+footer a icon {
+    display: block;
+    font-size: 26px;
+}
+
+footer a span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+}
+
+section.options button {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: var(--light);
+    color: var(--lightText);
+    text-align: start;
+    border-radius: 10px;
+}
+
+section.options button:first-child:not(:last-child) {
+    border-radius: 10px 10px 0 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+section.options button:not(:first-child):not(:last-child) {
+    border-radius: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+section.options button:last-child:not(:first-child) {
+    border-radius: 0 0 10px 10px;
+}
+
+section.options button icon {
+    position: relative;
+    top: 2px;
+    float: right;
+}
+
+[dir="rtl"] section.options button icon {
+    float: left;
+}
+
+section.options button span:nth-child(3) {
+    margin-left: 10px;
+    margin-right: 10px;
+    float: right;
+    color: rgba(0, 0, 0, 0.15);
+}
+
+[dir="rtl"] section.options button span:nth-child(2) {
+    float: left;
+}
+
+section.options button:active {
+    filter: brightness(0.95);
+}
+
+a {
+    color: var(--dark);
+    transition: 0.5s;
+}
+
+a:active {
+    color: var(--blue);
+}
+
+button {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    padding: 14px;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: var(--blue);
+    color: var(--blueText);
+    font-size: 20px;
+    border: none;
+    border-radius: 26px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+button:active {
+    filter: brightness(1.15);
+}
+
+button.light {
+    background-color: var(--light);
+    color: var(--lightText);
+}
+
+button.light:active {
+    filter: brightness(0.95);
+}
+
+button.dark {
+    background-color: var(--dark);
+    color: var(--darkText);
+}
+
+button.red {
+    background-color: var(--red);
+    color: var(--redText);
+}
+
+button.green {
+    background-color: var(--green);
+    color: var(--greenText);
+}
+
+button.blue {
+    background-color: var(--blue);
+    color: var(--blueText);
+}
+
+.start {
+    text-align: start;
+}
+
+.center {
+    text-align: center;
+}
+
+.end {
+    text-align: end;
+}
+
+[dir="rtl"] .flippable {
+    transform: rotateY(180deg);
+}
