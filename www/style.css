@@ -28,6 +28,7 @@ html, body {
     background-color: var(--background);
     color: var(--text);
     font-family: "Lato", sans-serif;
+    overflow: hidden;
 }
 
 *, *:before, *:after {
@@ -124,9 +125,14 @@ nav > span {
 }
 
 main {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: calc(100vh - 50px);
     padding: 20px;
+    background-color: var(--background);
+    color: var(--text);
     overflow: auto;
 }
 
@@ -166,8 +172,11 @@ header.home p.alertsStatus {
 }
 
 footer {
+    position: absolute;
     display: flex;
     flex-wrap: wrap;
+    bottom: 0;
+    width: 100vw;
     height: 50px;
     background-color: var(--light);
 }
