@@ -53,9 +53,57 @@
         <main hidden id="map">
             <nav>
                 <button onclick="screens.moveBack('map', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
-                <span>Map</span>
+                <span>@Map</span>
             </nav>
             <div id="mapContent"></div>
+            <div id="mapInfo">
+                <span>@{0} mi from home|0</span>
+                <span>@Out for {0} mins|0</span>
+            </div>
+        </main>
+        <main hidden id="awards">
+            <nav class="red">
+                <button onclick="screens.moveBack('awards', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Awards</span>
+            </nav>
+            <div class="content">
+                <header class="awards">
+                    <a href="javascript:void(0);" class="implied"><span>@Username</span> <icon aria-label="@Edit">edit</icon></a>
+                    <img src="media/levels/1.svg" class="level" />
+                </header>
+                <div class="center">
+                    <h1 class="level">@Level {0}|1</h1>
+                    <progress min="0" max="100" value="65" class="red"></progress>
+                    <span class="red">@{0} points|65</span>
+                </div>
+                <h2 class="optionHeader">Achievements</h2>
+                <section class="options">
+                    <button class="achievement">
+                        <icon aria-hidden="true" class="thumbnail">store</icon>
+                        <span class="points" aria-label="@{0} points|10">10</span>
+                        <strong>Quickest Shop Ever!</strong>
+                        <span>Go to the shop and come back home in 10 minutes.</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button class="achievement">
+                        <icon aria-hidden="true" class="thumbnail">nature_local</icon>
+                        <span class="points" aria-label="@{0} points|10">10</span>
+                        <strong>A Solitary Walk</strong>
+                        <span>Keep a 10m distance from others when at the park.</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <h2 class="optionHeader">Next goals</h2>
+                <section class="options">
+                    <button class="achievement">
+                        <icon aria-hidden="true" class="thumbnail">house</icon>
+                        <span class="points" aria-label="@{0} points|10">10</span>
+                        <strong>Staying In</strong>
+                        <span>Stay indoors for 3 days in a row.</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+            </div>
         </main>
         <footer>
             <a href="javascript:screens.switch('home');" class="selected" data-screen="home">

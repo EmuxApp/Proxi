@@ -171,6 +171,25 @@ header.home p.alertsStatus {
     color: var(--dark);
 }
 
+header.awards {
+    position: relative;
+    height: 100px;
+    margin-bottom: 60px!important;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(247, 85, 144, 0.2);
+}
+
+header.awards img.level {
+    position: relative;
+    display: block;
+    top: 20px;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
 footer {
     position: absolute;
     display: flex;
@@ -229,7 +248,17 @@ div.content {
     height: calc(100vh - 40px - 50px);
     margin: -20px;
     padding: 20px;
+    text-align: start;
     overflow: auto;
+}
+
+div.content header {
+    margin: -20px;
+}
+
+section.options {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 section.options button {
@@ -287,12 +316,113 @@ section.options button:active {
     filter: brightness(0.95);
 }
 
+section.options button.achievement {
+    position: relative;
+    height: 93px;
+    padding-left: 90px;
+}
+
+section.options button.achievement:last-child {
+    height: 90px;
+}
+
+section.options button.achievement icon.thumbnail {
+    position: absolute!important;
+    top: 10px!important;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background-color: var(--red);
+    color: var(--redText);
+    font-size: 30px;
+    border-radius: 25px;
+}
+
+section.options button.achievement span.points {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 50px;
+    color: var(--red);
+    font-size: 14px;
+    text-align: center;
+}
+
+section.options button.achievement strong {
+    display: block;
+    width: calc(100% - 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+section.options button.achievement span:not(.points) {
+    display: block;
+    width: calc(100% - 30px);
+    height: 40px;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+section.options button.achievement icon:not(.thumbnail) {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+}
+
+h1.level {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+h2.optionHeader {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
 a {
     color: var(--dark);
-    transition: 0.5s;
+    transition: color 0.5s;
 }
 
 a:active {
+    color: var(--blue);
+}
+
+a.implied {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.5s;
+}
+
+a.implied:active {
+    color: inherit;
+    opacity: 0.5;
+}
+
+a icon {
+    position: relative;
+    top: 2px;
+}
+
+span.dark {
+    color: var(--dark);
+}
+
+span.red {
+    color: var(--red);
+}
+
+span.green {
+    color: var(--green);
+}
+
+span.blue {
     color: var(--blue);
 }
 
@@ -345,6 +475,46 @@ button.blue {
     color: var(--blueText);
 }
 
+progress {
+    appearance: none;
+    width: 100%;
+    height: 15px;
+    margin: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    background-color: var(--light);
+    border: none;
+    border-radius: 7.5px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--light);
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--blue);
+    border-radius: 10px;
+    transition: width 0.5s;
+}
+
+progress.dark::-webkit-progress-value {
+    background-color: var(--dark);
+}
+
+progress.red::-webkit-progress-value {
+    background-color: var(--red);
+}
+
+progress.green::-webkit-progress-value {
+    background-color: var(--green);
+}
+
+progress.blue::-webkit-progress-value {
+    background-color: var(--blue);
+}
+
 .start {
     text-align: start;
 }
@@ -365,6 +535,30 @@ button.blue {
     position: absolute;
     top: 60px;
     width: 100vw;
-    height: calc(100vh - 40px - 50px);
+    height: calc(100vh - 40px - 60px - 50px);
     margin: -20px;
+}
+
+#mapInfo {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    bottom: 20px;
+    width: 100vw;
+    height: 60px;
+    margin: -20px;
+    padding: 15px;
+    background-color: var(--background);
+    color: var(--text);
+    border-top: 3px solid var(--light);
+}
+
+#mapInfo span {
+    flex-grow: 1;
+    flex-basis: 0;
+    font-size: 20px;
+}
+
+#mapInfo span:last-child {
+    text-align: end;
 }

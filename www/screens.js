@@ -20,6 +20,8 @@ var screens = {
             $("footer a:not([data-screen='" + to + "'])").removeClass("selected");
             $("footer a[data-screen='" + to + "']").addClass("selected");
         }
+
+        screens.load(to);
     },
 
     moveBack: function(from, to = "home") {
@@ -69,6 +71,8 @@ var screens = {
                 "left": "0"
             });
         }, 350);
+
+        screens.load(to);
     },
 
     moveForward: function(from, to = "home") {
@@ -118,6 +122,14 @@ var screens = {
                 "left": "0"
             });
         }, 350);
+
+        screens.load(to);
+    },
+
+    load: function(screen = "home") {
+        if (screen == "map") {
+            map.resize();
+        }
     }
 };
 
