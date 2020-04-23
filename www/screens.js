@@ -27,23 +27,33 @@ var screens = {
     moveBack: function(from, to = "home") {
         $("main[id='" + from + "']").css({
             "z-index": "2",
-            "left": "0"
+            "left": "0",
+            "right": "0"
         });
 
         $("main[id='" + to + "']").css({
             "z-index": "1",
             "left": "0",
+            "right": "0",
             "filter": "brightness(0.5)"
         });
 
         $("main[id='" + from + "']").removeAttr("hidden");
         $("main[id='" + to + "']").removeAttr("hidden");
 
-        $("main[id='" + from + "']").animate({
-            "left": $(window).width() + "px"
-        }, {
-            duration: 350
-        });
+        if ($("html").attr("dir") == "rtl") {
+            $("main[id='" + from + "']").animate({
+                "right": $(window).width() + "px"
+            }, {
+                duration: 350
+            });
+        } else {
+            $("main[id='" + from + "']").animate({
+                "left": $(window).width() + "px"
+            }, {
+                duration: 350
+            });
+        }
 
         var currentBrightness = 0.5;
         
@@ -68,7 +78,8 @@ var screens = {
         setTimeout(function() {
             $("main[id='" + from + "']").attr("hidden", "");
             $("main[id='" + from + "']").css({
-                "left": "0"
+                "left": "0",
+                "right": "0"
             });
         }, 350);
 
@@ -79,19 +90,28 @@ var screens = {
         $("main[id='" + from + "']").css({
             "z-index": "1",
             "left": "0",
+            "right": "0",
             "filter": "brightness(0.5)"
         });
 
-        $("main[id='" + to + "']").css({
-            "z-index": "2",
-            "left": $(window).width() + "px"
-        });
+        if ($("html").attr("dir") == "rtl") {
+            $("main[id='" + to + "']").css({
+                "z-index": "2",
+                "right": $(window).width() + "px"
+            });
+        } else {
+            $("main[id='" + to + "']").css({
+                "z-index": "2",
+                "left": $(window).width() + "px"
+            }); 
+        }
 
         $("main[id='" + from + "']").removeAttr("hidden");
         $("main[id='" + to + "']").removeAttr("hidden");
 
         $("main[id='" + to + "']").animate({
-            "left": "0"
+            "left": "0",
+            "right": "0"
         }, {
             duration: 350
         });
@@ -119,7 +139,8 @@ var screens = {
         setTimeout(function() {
             $("main[id='" + from + "']").attr("hidden", "");
             $("main[id='" + from + "']").css({
-                "left": "0"
+                "left": "0",
+                "right": "0"
             });
         }, 350);
 

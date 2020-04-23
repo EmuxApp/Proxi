@@ -190,6 +190,63 @@ header.awards img.level {
     margin: auto;
 }
 
+header.settings {
+    margin-bottom: 20px!important;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(16, 255, 203, 0.2);
+}
+
+header.settings img.profile {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+header.settings h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+header.settings p {
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+header.settings button {
+    width: calc(50% - 4px);
+    margin: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+header.settings button:first-of-type {
+    margin-right: 2px;
+}
+
+header.settings button:last-of-type {
+    margin-left: 2px;
+}
+
+[dir="rtl"] header.settings button:first-of-type {
+    margin-left: 2px;
+    margin-right: 0;
+}
+
+[dir="rtl"] header.settings button:last-of-type {
+    margin-left: 0;
+    margin-right: 2px;
+}
+
 footer {
     position: absolute;
     display: flex;
@@ -256,9 +313,25 @@ div.content header {
     margin: -20px;
 }
 
+div.signature {
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+div.signature img {
+    display: block;
+    margin: auto;
+    margin-bottom: 3px;
+    height: 20px;
+}
+
+div.signature small {
+    font-size: 12px;
+}
+
 section.options {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 section.options button {
@@ -326,6 +399,11 @@ section.options button.achievement:last-child {
     height: 90px;
 }
 
+[dir="rtl"] section.options button.achievement {
+    padding-left: unset;
+    padding-right: 90px;
+}
+
 section.options button.achievement icon.thumbnail {
     position: absolute!important;
     top: 10px!important;
@@ -339,6 +417,11 @@ section.options button.achievement icon.thumbnail {
     border-radius: 25px;
 }
 
+[dir="rtl"] section.options button.achievement icon.thumbnail {
+    left: unset;
+    right: 20px;
+}
+
 section.options button.achievement span.points {
     position: absolute;
     bottom: 10px;
@@ -347,6 +430,11 @@ section.options button.achievement span.points {
     color: var(--red);
     font-size: 14px;
     text-align: center;
+}
+
+[dir="rtl"] section.options button.achievement span.points {
+    left: unset;
+    right: 20px;
 }
 
 section.options button.achievement strong {
@@ -372,13 +460,18 @@ section.options button.achievement icon:not(.thumbnail) {
     right: 10px;
 }
 
+[dir="rtl"] section.options button.achievement icon:not(.thumbnail) {
+    left: 10px;
+    right: unset;
+}
+
 h1.level {
     font-size: 24px;
     font-weight: normal;
 }
 
 h2.optionHeader {
-    margin-bottom: 10px;
+    margin-bottom: -10px;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 20px;

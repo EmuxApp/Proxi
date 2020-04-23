@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
     Proxi
  
@@ -6,7 +7,6 @@
     https://emux.app
     Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
 -->
-<!DOCTYPE html>
 <html>
     <head>
         <title>@Proxi</title>
@@ -55,7 +55,7 @@
                 <button onclick="screens.moveBack('map', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Map</span>
             </nav>
-            <div id="mapContent"></div>
+            <div dir="ltr" id="mapContent"></div>
             <div id="mapInfo">
                 <span>@{0} mi from home|0</span>
                 <span>@Out for {0} mins|0</span>
@@ -103,6 +103,53 @@
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
                 </section>
+            </div>
+        </main>
+        <main hidden id="settings">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Settings</span>
+            </nav>
+            <div class="content">
+                <header class="settings">
+                    <img src="media/profile.svg" alt="" class="profile" />
+                    <h1>Oliver Jackson</h1>
+                    <p>07700 982415</p>
+                    <button class="green">@Edit info</button>
+                    <button class="green">@Sign out</button>
+                </header>
+                <section class="options">
+                    <button>
+                        <span>@Your data</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button>
+                        <span>@Geolocation options</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button>
+                        <span>@Notifications</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <section class="options">
+                    <button>
+                        <span>@About Proxi</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button>
+                        <span>@Terms of Service</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button>
+                        <span>@Privacy Policy</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <div class="signature">
+                    <img src="media/emuxText.svg" alt="Emux" />
+                    <small>Made with &#x2764; in Norwich, United Kingdom</small>
+                </div>
             </div>
         </main>
         <footer>
