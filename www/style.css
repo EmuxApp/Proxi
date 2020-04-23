@@ -41,18 +41,93 @@ html, body {
 }
 
 nav {
+    position: relative;
     height: 40px;
+    margin: -20px;
+    background-color: var(--blue);
+    color: var(--blueText);
+    text-align: center;
+}
+
+nav.light {
+    background-color: var(--light);
+    color: var(--lightText);
+}
+
+nav.dark {
+    background-color: var(--dark);
+    color: var(--darkText);
+}
+
+nav.red {
+    background-color: var(--red);
+    color: var(--redText);
+}
+
+nav.green {
+    background-color: var(--green);
+    color: var(--greenText);
+}
+
+nav.blue {
+    background-color: var(--blue);
+    color: var(--blueText);
+}
+
+nav button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+    padding-bottom: 5px;
+    background-color: transparent;
+    color: inherit;
+    border-radius: 0;
+    transition: color 0.5s;
+}
+
+nav button:active {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+[dir="rtl"] nav button {
+    left: unset;
+    right: 0;
+}
+
+nav button icon {
+    vertical-align: middle;
+}
+
+nav button span {
+    margin-left: -5px;
+    vertical-align: middle;
+}
+
+[dir="rtl"] nav button span {
+    margin-left: unset;
+    margin-right: -5px;
+}
+
+nav > span {
+    display: inline-block;
+    height: 100%;
+    margin: 0;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    font-size: 20px;
 }
 
 main {
     width: 100vw;
-    height: calc(100vh - 40px - 50px);
+    height: calc(100vh - 50px);
     padding: 20px;
     overflow: auto;
-}
-
-main.noNav {
-    height: calc(100vh - 50px);
 }
 
 header {
@@ -110,7 +185,7 @@ footer a {
 }
 
 footer a.selected {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.075);
 }
 
 footer a.selected:active {
@@ -185,7 +260,7 @@ section.options button span:nth-child(3) {
     color: rgba(0, 0, 0, 0.15);
 }
 
-[dir="rtl"] section.options button span:nth-child(2) {
+[dir="rtl"] section.options button span:nth-child(3) {
     float: left;
 }
 

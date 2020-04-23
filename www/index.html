@@ -1,3 +1,11 @@
+<!--
+    Proxi
+ 
+    Copyright (C) Emux Technologies. All Rights Reserved.
+ 
+    https://emux.app
+    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,10 +18,11 @@
         <script src="lib/jquery.min.js"></script>
         <script src="core.js"></script>
         <script src="lang.js"></script>
+        <script src="screens.js"></script>
         <script src="lang/en_GB.js"></script>
     </head>
     <body>
-        <main class="noNav">
+        <main class="noNav" id="home">
             <header class="home">
                 <h1>@Proxi</h1>
                 <p class="tagline">@Keep your distance</p><br>
@@ -23,35 +32,41 @@
             <section class="options">
                 <button>
                     <span>@Alert mode</span>
-                    <icon aria-hidden="true">arrow_forward_ios</icon>
+                    <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     <span>@Vibrate</span>
                 </button>
                 <button>
                     <span>@Family contacts</span>
-                    <icon aria-hidden="true">arrow_forward_ios</icon>
+                    <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     <span>0</span>
                 </button>
                 <button>
                     <span>@Data sharing</span>
-                    <icon aria-hidden="true">arrow_forward_ios</icon>
+                    <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     <span>0</span>
                 </button>
             </section>
         </main>
+        <main hidden id="map">
+            <nav>
+                <button><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>Map</span>
+            </nav>
+        </main>
         <footer>
-            <a href="javascript:void(0);" class="selected">
+            <a href="javascript:screens.switch('home');" class="selected" data-screen="home">
                 <icon>home</icon>
                 <span>@Home</span>
             </a>
-            <a href="javascript:void(0);">
+            <a href="javascript:screens.switch('map');" data-screen="map">
                 <icon>map</icon>
                 <span>@Map</span>
             </a>
-            <a href="javascript:void(0);">
+            <a href="javascript:screens.switch('awards');" data-screen="awards">
                 <icon>emoji_events</icon>
                 <span>@Awards</span>
             </a>
-            <a href="javascript:void(0);">
+            <a href="javascript:screens.switch('settings');" data-screen="settings">
                 <icon>settings</icon>
                 <span>@Settings</span>
             </a>
