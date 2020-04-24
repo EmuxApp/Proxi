@@ -136,6 +136,11 @@ main {
     overflow: auto;
 }
 
+main.fillScreen {
+    height: 100vh;
+    z-index: 1;
+}
+
 header {
     text-align: center;
 }
@@ -498,6 +503,13 @@ a.implied:active {
     opacity: 0.5;
 }
 
+a.buttonLike {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
 a icon {
     position: relative;
     top: 2px;
@@ -568,6 +580,35 @@ button.blue {
     color: var(--blueText);
 }
 
+button.fillWidth {
+    width: 100%;
+}
+
+button.bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    width: calc(100vw - 40px);
+}
+
+input {
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    padding: 14px;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: var(--light);
+    color: var(--lightText);
+    font-size: 20px;
+    border: none;
+    border-radius: 26px;
+    cursor: text;
+    transition: 0.5s;
+}
+
 progress {
     appearance: none;
     width: 100%;
@@ -608,6 +649,26 @@ progress.blue::-webkit-progress-value {
     background-color: var(--blue);
 }
 
+img.fillWidth {
+    width: 100%;
+}
+
+img.headerGraphic {
+    width: 100%;
+    height: 20vh;
+    object-fit: contain;
+}
+
+img.headerGraphicSmaller {
+    width: 100%;
+    height: 15vh;
+    object-fit: contain;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
 .start {
     text-align: start;
 }
@@ -622,6 +683,10 @@ progress.blue::-webkit-progress-value {
 
 [dir="rtl"] .flippable {
     transform: rotateY(180deg);
+}
+
+.hasBottomButton {
+    padding-bottom: 90px;
 }
 
 #mapContent {

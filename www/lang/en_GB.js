@@ -12,6 +12,7 @@ lang.load("en-GB", {
     nameShort: "English",
     textDirection: "ltr",
     strings: {
+        "We've sent you an SMS message that contains a verification code to {0}. Enter it here so that we can continue setting up your account!": "@We've sent you an SMS message that contains a verification code to {0}. Enter it here so that we can continue setting up your account!",
         "{0} mi from home": "{0} mi from home",
         "Out for {0} mins": {
             "{0} == `1`": "Out for 1 min",

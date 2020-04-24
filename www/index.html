@@ -26,7 +26,97 @@
         <script src="lang/en_GB.js"></script>
     </head>
     <body>
-        <main class="noNav" id="home">
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_intro">
+            <img src="media/graphics/distancing.svg" alt="@Graphic of people practicing social distancing" class="fillWidth" />
+            <h1>@Welcome to Proxi</h1>
+            <p>
+                @Thanks for downloading our app! We're glad to have you part of
+                our global team who is helping others to keep their distance.
+                We'll quickly guide you through some steps so that you are good
+                to go.
+            </p>
+            <button onclick="screens.moveForward('firstTime_intro', 'firstTime_phoneNumber');" class="red bottom">@Next</button>
+        </main>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_phoneNumber">
+            <img src="media/graphics/phone.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@Enter your phone number</h1>
+            <p>
+                @To verify that you're human (and that you're not cheating the
+                service), please enter your phone number so we can create your
+                account.
+            </p>
+            <p>
+                @We'll send you an SMS message containing a verification code.
+            </p>
+            <input type="tel" placeholder="@Enter your phone number"></input>
+            <button onclick="screens.moveForward('firstTime_phoneNumber', 'firstTime_phoneVerification');" class="red bottom">@Next</button>
+        </main>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_phoneVerification">
+            <img src="media/graphics/phone.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@Verify your phone number</h1>
+            <p>
+                @We've sent you an SMS message that contains a verification
+                code to {0}. Enter it here so that we can continue setting up
+                your account!|07700 982415
+            </p>
+            <input type="tel" placeholder="@Enter the 6-digit verification code"></input>
+            <a href="javascript:screens.moveBack('firstTime_phoneVerification', 'firstTime_phoneNumber');" class="implied buttonLike"><span class="red">@Wrong phone number?</span></a>
+            <button onclick="screens.moveForward('firstTime_phoneVerification', 'firstTime_dataUsage');" class="red bottom">@Verify</button>
+        </main>
+        <main hidden class="fillScreen center" id="firstTime_dataUsage">
+            <img src="media/graphics/data.svg" alt="@Graphic of phone displaying text messages" class="headerGraphicSmaller" />
+            <h1>@Understand how we use your data</h1>
+            <p class="start">
+                <strong>@We care about your privacy.</strong>
+                <span>
+                    @Emux Technologies has taken special measures to ensure
+                    that your data is safe and secure from others, and we want
+                    to put you in control of your data at all times.
+                </span>
+            </p>
+            <ul class="start">
+                <li>
+                    <strong>@We'll only track your location when you're at home.</strong>
+                    <span>
+                        @We track the location of everyone anonymously, and 
+                        record historical data in a way that makes you
+                        untrackable.
+                    </span>
+                </li>
+                <li>
+                    <strong>@We only share your data with organisations that you trust.</strong>
+                    <span>
+                        @You can choose which organisations you wish to share
+                        your data with. You can opt out at any time, and at the
+                        tap of a button.
+                    </span>
+                </li>
+                <li>
+                    <strong>@You have control over the storage of your data.</strong>
+                    <span>
+                        @We let you download or delete your data at any time
+                        (with the exception of historical data where it is
+                        impossible to connect you to previously-recorded data).
+                    </span>
+                </li>
+            </ul>
+            <p>
+                @By using Proxi, you accept our <a href="#" target="_blank">
+                Terms of Service</a> and <a href="#" target="_blank">Privacy
+                Policy</a>.
+            </p>
+            <button onclick="screens.moveForward('firstTime_dataUsage', 'firstTime_homeAddress');" class="red fillWidth">@Accept permissions</button>
+        </main>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_homeAddress">
+            <img src="media/graphics/home.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@Set your home address</h1>
+            <p>
+                @We won't track you when you're within 20m of your home address.
+            </p>
+            <input alt="What's your address?"></input>
+            <button onclick="screens.moveBack('firstTime_homeAddress', 'home');" class="red bottom">@Accept permissions</button>
+        </main>
+        <main hidden class="noNav" id="home">
             <header class="home">
                 <h1>@Proxi</h1>
                 <p class="tagline">@Keep your distance</p><br>
