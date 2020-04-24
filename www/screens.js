@@ -153,7 +153,3 @@ var screens = {
         }
     }
 };
-
-$(function() {
-    screens.switch("home");
-});

@@ -16,7 +16,13 @@
         <link rel="stylesheet" href="lib/font.css">
         <link rel="stylesheet" href="lib/mapbox-gl.css">
         <link rel="stylesheet" href="style.css">
+        <script src="cordova.js"></script>
         <script src="lib/jquery.min.js"></script>
+        <script src="lib/firebase-app.js"></script>
+        <script src="lib/firebase-analytics.js"></script>
+        <script src="lib/firebase-auth.js"></script>
+        <script src="lib/firebase-firestore.js"></script>
+        <script src="lib/firebase-storage.js"></script>
         <script src="lib/mapbox-gl.js"></script>
         <script src="core.js"></script>
         <script src="lang.js"></script>
@@ -35,33 +41,19 @@
                 We'll quickly guide you through some steps so that you are good
                 to go.
             </p>
-            <button onclick="screens.moveForward('firstTime_intro', 'firstTime_phoneNumber');" class="red bottom">@Next</button>
+            <button onclick="screens.moveForward('firstTime_intro', 'firstTime_account');" class="red bottom">@Next</button>
         </main>
-        <main hidden class="fillScreen center hasBottomButton" id="firstTime_phoneNumber">
-            <img src="media/graphics/phone.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
-            <h1>@Enter your phone number</h1>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_account">
+            <img src="media/graphics/user.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@Create an account</h1>
             <p>
-                @To verify that you're human (and that you're not cheating the
-                service), please enter your phone number so we can create your
-                account.
+                @We can keep track of your settings and awards, all under your
+                account. Enter your details below to sign up!
             </p>
-            <p>
-                @We'll send you an SMS message containing a verification code.
-            </p>
-            <input type="tel" placeholder="@Enter your phone number"></input>
-            <button onclick="screens.moveForward('firstTime_phoneNumber', 'firstTime_phoneVerification');" class="red bottom">@Next</button>
-        </main>
-        <main hidden class="fillScreen center hasBottomButton" id="firstTime_phoneVerification">
-            <img src="media/graphics/phone.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
-            <h1>@Verify your phone number</h1>
-            <p>
-                @We've sent you an SMS message that contains a verification
-                code to {0}. Enter it here so that we can continue setting up
-                your account!|07700 982415
-            </p>
-            <input type="tel" placeholder="@Enter the 6-digit verification code"></input>
-            <a href="javascript:screens.moveBack('firstTime_phoneVerification', 'firstTime_phoneNumber');" class="implied buttonLike"><span class="red">@Wrong phone number?</span></a>
-            <button onclick="screens.moveForward('firstTime_phoneVerification', 'firstTime_dataUsage');" class="red bottom">@Verify</button>
+            <input placeholder="@Enter a username"></input>
+            <input type="password" placeholder="@Choose a password"></input>
+            <a href="#" class="implied buttonLike"><span>@Already got an account?</span> <span class="red">@Sign in</span></a>
+            <button onclick="screens.moveForward('firstTime_account', 'firstTime_dataUsage');" class="red bottom">@Next</button>
         </main>
         <main hidden class="fillScreen center" id="firstTime_dataUsage">
             <img src="media/graphics/data.svg" alt="@Graphic of phone displaying text messages" class="headerGraphicSmaller" />
@@ -113,8 +105,8 @@
             <p>
                 @We won't track you when you're within 20m of your home address.
             </p>
-            <input alt="What's your address?"></input>
-            <button onclick="screens.moveBack('firstTime_homeAddress', 'home');" class="red bottom">@Accept permissions</button>
+            <input placeholder="@What's your address?"></input>
+            <button onclick="screens.moveBack('firstTime_homeAddress', 'home');" class="red bottom">@Done</button>
         </main>
         <main hidden class="noNav" id="home">
             <header class="home">

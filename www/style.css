@@ -734,6 +734,7 @@ li {
     background-color: var(--light);
     color: var(--lightText);
     text-align: center;
+    z-index: 1;
 }
 
 #loader img {
