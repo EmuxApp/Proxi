@@ -551,6 +551,10 @@ button:active {
     filter: brightness(1.15);
 }
 
+button:disabled {
+    opacity: 0.5;
+}
+
 button.light {
     background-color: var(--light);
     color: var(--lightText);
@@ -750,4 +754,14 @@ li {
 #loader p {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+@media (max-height: 550px) {
+    button.bottom {
+        position: unset;
+    }
+
+    .hasBottomButton {
+        padding-bottom: 20px;
+    }
 }

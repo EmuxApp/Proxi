@@ -21,7 +21,7 @@
         <script src="lib/firebase-app.js"></script>
         <script src="lib/firebase-analytics.js"></script>
         <script src="lib/firebase-auth.js"></script>
-        <script src="lib/firebase-firestore.js"></script>
+        <script src="lib/firebase-database.js"></script>
         <script src="lib/firebase-storage.js"></script>
         <script src="lib/mapbox-gl.js"></script>
         <script src="core.js"></script>
@@ -50,10 +50,25 @@
                 @We can keep track of your settings and awards, all under your
                 account. Enter your details below to sign up!
             </p>
-            <input placeholder="@Enter a username"></input>
-            <input type="password" placeholder="@Choose a password"></input>
-            <a href="#" class="implied buttonLike"><span>@Already got an account?</span> <span class="red">@Sign in</span></a>
-            <button onclick="screens.moveForward('firstTime_account', 'firstTime_dataUsage');" class="red bottom">@Next</button>
+            <input placeholder="@Enter a username" maxlength="20" id="firstTime_username"></input>
+            <input type="password" placeholder="@Choose a password" id="firstTime_password"></input>
+            <a href="javascript:screens.moveForward('firstTime_account', 'firstTime_signIn');" class="implied buttonLike"><span>@Already got an account?</span> <span class="red">@Sign in</span></a>
+            <!-- TODO: Make signing in work -->
+            <div>
+                <small>@Your username must only contain letters and numbers, and cannot exceed 20 characters.</small>
+            </div>
+            <button onclick="firstTime_validateAccount();" class="red bottom" id="firstTime_validateAccount">@Next</button>
+        </main>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_signIn">
+            <img src="media/graphics/user.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@Sign into your account</h1>
+            <p>
+                @Sign back into your account to continue to enjoy Proxi!
+            </p>
+            <input placeholder="@Enter your username" maxlength="20" id="firstTime_signInUsername"></input>
+            <input type="password" placeholder="@Enter your password" id="firstTime_signInPassword"></input>
+            <a href="javascript:screens.moveBack('firstTime_signIn', 'firstTime_account');" class="implied buttonLike"><span>@Don't have an account yet?</span> <span class="red">@Create account</span></a>
+            <button onclick="firstTime_signIn();" class="red bottom" id="firstTime_signInButton">@Sign in</button>
         </main>
         <main hidden class="fillScreen center" id="firstTime_dataUsage">
             <img src="media/graphics/data.svg" alt="@Graphic of phone displaying text messages" class="headerGraphicSmaller" />
@@ -97,16 +112,17 @@
                 Terms of Service</a> and <a href="#" target="_blank">Privacy
                 Policy</a>.
             </p>
-            <button onclick="screens.moveForward('firstTime_dataUsage', 'firstTime_homeAddress');" class="red fillWidth">@Accept permissions</button>
+            <!-- TODO: Add screen that shows Terms of Service, as well as another one for Privacy Policy -->
+            <button onclick="firstTime_accept();" class="red fillWidth" id="firstTime_accept">@Accept</button>
         </main>
-        <main hidden class="fillScreen center hasBottomButton" id="firstTime_homeAddress">
+        <main hidden class="fillScreen center" id="firstTime_homeAddress">
             <img src="media/graphics/home.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
             <h1>@Set your home address</h1>
             <p>
                 @We won't track you when you're within 20m of your home address.
             </p>
-            <input placeholder="@What's your address?"></input>
-            <button onclick="screens.moveBack('firstTime_homeAddress', 'home');" class="red bottom">@Done</button>
+            <input placeholder="@What's your address?" onkeyup="firstTime_homeAddressList();" id="firstTime_homeAddressInput"></input>
+            <section class="options" id="firstTime_homeAddressList"></div>
         </main>
         <main hidden class="noNav" id="home">
             <header class="home">
@@ -199,7 +215,7 @@
                     <h1>Oliver Jackson</h1>
                     <p>07700 982415</p>
                     <button class="green">@Edit info</button>
-                    <button class="green">@Sign out</button>
+                    <button onclick="signOut();" class="green">@Sign out</button>
                 </header>
                 <section class="options">
                     <button>
@@ -254,7 +270,7 @@
             </a>
         </footer>
         <div id="loader">
-            <img src="media/proxi.svg" />
+            <img src="media/proxi.svg" alt="@Proxi is loading..." />
             <h1>@Proxi</h1>
             <p>@Keep your distance</p>
         </div>
