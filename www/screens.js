@@ -10,7 +10,8 @@
 var screens = {
     switch: function(to = "home") {
         $("main[id='" + to + "']").css({
-            "left": "0"
+            "left": "0",
+            "filter": "brightness(1)"
         });
 
         $("main:not([id='" + to + "'])").attr("hidden", "");
@@ -92,6 +93,10 @@ var screens = {
             "left": "0",
             "right": "0",
             "filter": "brightness(0.5)"
+        });
+
+        $("main[id='" + to + "']").css({
+            "filter": "brightness(1)"
         });
 
         if ($("html").attr("dir") == "rtl") {
