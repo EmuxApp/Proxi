@@ -8,6 +8,7 @@
 */
 
 const GEOHASH_PRECISION = 10;
+const TRACKED_TIMEOUT = 30 * 1000; // 30 seconds
 
 var tracking = {
     alertsOn: false,
@@ -25,6 +26,10 @@ var tracking = {
 
 tracking.degreesToRadians = function(degrees) {
     return degrees * (Math.PI / 180);
+};
+
+tracking.metresToMiles = function(metres) {
+    return metres * 0.000621371192;
 };
 
 tracking.calculateDistance = function(lat1, long1, lat2, long2) {
@@ -99,7 +104,7 @@ tracking.start = function() {
             var nearestDistance = null;
             
             for (var i = 0; i < tracked.length; i++) {
-                if (tracked[i].aid != localStorage.getItem("trackingAid")) { // Check to see that it's not us
+                if (new Date().getTime() - tracked[i].time <= TRACKED_TIMEOUT && tracked[i].aid != localStorage.getItem("trackingAid")) {
                     var latitude = Geohash.decode(tracked[i].loc).lat;
                     var longitude = Geohash.decode(tracked[i].loc).lon;
                     var distance = tracking.calculateDistance(
@@ -123,21 +128,36 @@ tracking.start = function() {
         if (tracking.currentLocation.homeDistance > 20) {
             if (localStorage.getItem("trackingAid") == null) {
                 localStorage.setItem("trackingAid", core.generateKey());
+                localStorage.setItem("outSince", String(new Date().getTime()));
 
                 firebase.database().ref("users/" + currentUser.uid + "/aid").set(localStorage.getItem("trackingAid")).then(function() {
                     tracking.sendLocation();
                 });
+
+                firebase.database().ref("users/" + currentUser.uid + "/outSince").set(new Date().getTime());
             } else {
                 tracking.sendLocation();
+            }
+
+            $(".homeDistance").text(_("{0} mi from home", [Math.round(tracking.metresToMiles(tracking.currentLocation.homeDistance))]));
+
+            if (localStorage.getItem("outSince") != null) {
+                $(".homeOut").text(_("Out for {0} mins", [Math.floor((new Date().getTime() - Number(localStorage.getItem("outSince"))) / 1000 / 60)]));
+            } else {
+                $(".homeOut").text("");
             }
         } else {
             if (localStorage.getItem("trackingAid") != null) {
                 localStorage.removeItem("trackingAid");
+                localStorage.removeItem("outSince");
 
                 firebase.database().ref("tracked/" + localStorage.getItem("trackingAid")).set(null).then(function() {
                     firebase.databse().ref("users/" + currentUser.uid + "/aid").set(null);
                 });
             }
+
+            $(".homeDistance").text(_("At home"));
+            $(".homeOut").text("");
         }
     }, function() {}, {timeout: 1000, maximumAge: 1000, enableHighAccuracy: true});
 };

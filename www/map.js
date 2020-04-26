@@ -90,20 +90,21 @@ $(function() {
             };
 
             snapshot.forEach(function(childSnapshot) {
-                mapHeatData.features.push({
-                    "type": "feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            Geohash.decode(childSnapshot.val().loc).lon,
-                            Geohash.decode(childSnapshot.val().loc).lat,
-                            0
-                        ]
-                    }
-                });
+                if (new Date().getTime() - childSnapshot.val().time <= TRACKED_TIMEOUT && childSnapshot.key != localStorage.getItem("trackingAid")) {
+                    mapHeatData.features.push({
+                        "type": "feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                Geohash.decode(childSnapshot.val().loc).lon,
+                                Geohash.decode(childSnapshot.val().loc).lat,
+                                0
+                            ]
+                        }
+                    });
+                }
+                
             });
-
-            console.log(mapHeatData);
 
             map.getSource("tracked").setData(mapHeatData);
         });
