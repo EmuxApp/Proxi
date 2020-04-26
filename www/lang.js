@@ -4,7 +4,7 @@
     Copyright (C) Emux Technologies. All Rights Reserved.
  
     https://emux.app
-    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+    Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 */
  
 var lang = {

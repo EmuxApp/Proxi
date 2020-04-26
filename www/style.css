@@ -2,7 +2,7 @@
     Proxi
     Copyright (C) Emux Technologies. All Rights Reserved.
     https://emux.app
-    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+    Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 */
 
 :root {
@@ -29,16 +29,18 @@ html, body {
     color: var(--text);
     font-family: "Lato", sans-serif;
     overflow: hidden;
+    user-select: none;
 }
 
 *, *:before, *:after {
     box-sizing: inherit;
     font-family: inherit;
+    user-select: inherit;
+    -webkit-tap-highlight-color: transparent;
 }
 
 *:focus {
     outline: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 nav {
@@ -163,6 +165,19 @@ header.home button.alerts {
     color: var(--lightText);
     font-size: 100px;
     border-radius: 100px;
+}
+
+header.home button.alerts:active {
+    filter: brightness(0.95);
+}
+
+header.home button.alerts.selected {
+    background-color: var(--green);
+    color: var(--greenText);
+}
+
+header.home button.alerts.selected:active {
+    filter: brightness(1.15);
 }
 
 header.home button.alerts icon {
@@ -609,6 +624,7 @@ input {
     font-size: 20px;
     border: none;
     border-radius: 26px;
+    user-select: auto;
     cursor: text;
     transition: 0.5s;
 }
@@ -691,6 +707,16 @@ li {
 
 .hasBottomButton {
     padding-bottom: 90px;
+}
+
+.mapHome {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background-color: var(--red);
+    color: var(--redText);
+    font-size: 20px;
+    border-radius: 20px;
 }
 
 #mapContent {

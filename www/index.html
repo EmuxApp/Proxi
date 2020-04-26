@@ -5,7 +5,7 @@
     Copyright (C) Emux Technologies. All Rights Reserved.
  
     https://emux.app
-    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+    Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 -->
 <html>
     <head>
@@ -24,10 +24,12 @@
         <script src="lib/firebase-database.js"></script>
         <script src="lib/firebase-storage.js"></script>
         <script src="lib/mapbox-gl.js"></script>
+        <script src="lib/latlon-geohash.js"></script>
         <script src="core.js"></script>
         <script src="lang.js"></script>
         <script src="screens.js"></script>
         <script src="map.js"></script>
+        <script src="tracking.js"></script>
         <script src="script.js"></script>
         <script src="lang/en_GB.js"></script>
     </head>
@@ -53,7 +55,6 @@
             <input placeholder="@Enter a username" maxlength="20" id="firstTime_username"></input>
             <input type="password" placeholder="@Choose a password" id="firstTime_password"></input>
             <a href="javascript:screens.moveForward('firstTime_account', 'firstTime_signIn');" class="implied buttonLike"><span>@Already got an account?</span> <span class="red">@Sign in</span></a>
-            <!-- TODO: Make signing in work -->
             <div>
                 <small>@Your username must only contain letters and numbers, and cannot exceed 20 characters.</small>
             </div>
@@ -122,13 +123,14 @@
                 @We won't track you when you're within 20m of your home address.
             </p>
             <input placeholder="@What's your address?" onkeyup="firstTime_homeAddressList();" id="firstTime_homeAddressInput"></input>
+            <a href="javascript:firstTime_homeAddressSetCurrent();" class="implied buttonLike"><span class="red">@I'm already at home</span></a>
             <section class="options" id="firstTime_homeAddressList"></div>
         </main>
         <main hidden class="noNav" id="home">
             <header class="home">
                 <h1>@Proxi</h1>
                 <p class="tagline">@Keep your distance</p><br>
-                <button class="alerts" aria-label="@Turn alerts on"><icon aria-hidden="true">power_settings_new</icon></button>
+                <button onclick="tracking.toggleAlerts();" class="alerts" aria-label="@Turn alerts on"><icon aria-hidden="true">power_settings_new</icon></button>
                 <p class="alertsStatus">@Currently not alerting you</p>
             </header>
             <section class="options">
@@ -247,25 +249,25 @@
                 </section>
                 <div class="signature">
                     <img src="media/emuxText.svg" alt="Emux" />
-                    <small>Made with &#x2764; in Norwich, United Kingdom</small>
+                    <small aria-label="@Made with love in Norwich, United Kingdom">@Made with &#x2764; in Norwich, United Kingdom</small>
                 </div>
             </div>
         </main>
         <footer>
             <a href="javascript:screens.switch('home');" class="selected" data-screen="home">
-                <icon>home</icon>
+                <icon aria-hidden="true">home</icon>
                 <span>@Home</span>
             </a>
             <a href="javascript:screens.switch('map');" data-screen="map">
-                <icon>map</icon>
+                <icon aria-hidden="true">map</icon>
                 <span>@Map</span>
             </a>
             <a href="javascript:screens.switch('awards');" data-screen="awards">
-                <icon>emoji_events</icon>
+                <icon aria-hidden="true">emoji_events</icon>
                 <span>@Awards</span>
             </a>
             <a href="javascript:screens.switch('settings');" data-screen="settings">
-                <icon>settings</icon>
+                <icon aria-hidden="true">settings</icon>
                 <span>@Settings</span>
             </a>
         </footer>

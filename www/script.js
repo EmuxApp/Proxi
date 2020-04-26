@@ -4,7 +4,7 @@
     Copyright (C) Emux Technologies. All Rights Reserved.
  
     https://emux.app
-    Licenced by the Emux Open-Source Licence, which can be found at LICENCE.md.
+    Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 */
 
 const firebaseConfig = {
@@ -205,7 +205,11 @@ function firstTime_homeAddressListProximity(latitude = 0, longitude = 0) {
                             localStorage.setItem("homeAddressLongitude", String(feature.center[0]));
                             localStorage.setItem("homeAddressSet", "true");
 
+                            resetHomeMarker();
+
                             screens.moveBack("firstTime_homeAddress", "home");
+
+                            tracking.start();
                         })
                     );
                 })(data.features[i]);
@@ -225,6 +229,26 @@ function firstTime_homeAddressList() {
     }, function() {
         firstTime_homeAddressListProximity();
     }, {timeout: 3000});
+}
+
+function firstTime_homeAddressSetCurrent() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        localStorage.setItem("homeAddressLatitude", String(position.coords.latitude));
+        localStorage.setItem("homeAddressLongitude", String(position.coords.longitude));
+        localStorage.setItem("homeAddressSet", "true");
+
+        resetHomeMarker();
+
+        screens.moveBack("firstTime_homeAddress", "home");
+
+        tracking.start();
+    }, function() {
+        navigator.notification.alert(
+            _("Please enter your address instead."),
+            function() {},
+            _("We couldn't get your current location")
+        );
+    }, {timeout: 3000, enableHighAccuracy: true});
 }
 
 function signOut() {
@@ -280,11 +304,15 @@ document.addEventListener("deviceready", function() {
                 screens.switch("firstTime_homeAddress");
             } else {
                 screens.switch("home");
+
+                tracking.start();
             }
         } else {
             currentUser.uid = null;
 
             screens.switch("firstTime_intro");
+
+            tracking.stop();
         }
 
         setTimeout(function() {
