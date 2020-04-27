@@ -110,8 +110,8 @@
                 </li>
             </ul>
             <p>
-                @By using Proxi, you accept our <a href="#" target="_blank">
-                Terms of Service</a> and <a href="#" target="_blank">Privacy
+                @By using Proxi, you accept our <a href="#">
+                Terms of Service</a> and <a href="#">Privacy
                 Policy</a>.
             </p>
             <!-- TODO: Add screen that shows Terms of Service, as well as another one for Privacy Policy -->
@@ -302,19 +302,22 @@
             <div class="content hasBottomButton">
                 <h1>@Submit a report</h1>
                 <p>
-                    @Do you have coronavirus symptoms (such as a high
-                    temperature or a new, continous cough)? If so, please report
-                    it here so that we can alert others who have come in contact
-                    with you within the past week.
+                    @If you are experiencing symptoms of COVID-19, such as a
+                    high temperature, a new, persistent cough, or muscle aches,
+                    or if you have been tested positive for COVID-19, please
+                    report it here.
                 </p>
                 <p>
-                    @If you have been tested positive for COVID-19, please
-                    report it too.
+                    @We will notify the people who you have come into contact
+                    with in the past week. Please be assured that this is
+                    completely anonymous. By declaring this, you are helping to
+                    stop the spread of COVID-19.
                 </p>
-                <p>
-                    @That way, we can track the spread of COVID-19 and help
-                    people to stay safe. We thank you for reporting your case.
-                </p>
+                <p><strong>
+                    @If symptoms persist after 7 days, please visit
+                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
+                    If it is an emergency, please dial 999.
+                </strong></p>
                 <button onclick="settings_reportInfectionFinal();" class="bottom">@Report COVID-19 infection</button>
             </div>
         </main>
@@ -325,23 +328,91 @@
             </nav>
             <div class="content">
                 <img src="media/graphics/stats.svg" alt="@Graphic of person looking at a pie chart" class="headerGraphic" />
-                <h1>@You have come into contact with someone who may have coronavirus</h1>
+                <h1>@You have come into contact with someone who may be infected with COVID-19</h1>
                 <p>
-                    @Within the last 7 days, you came within two metres of a
-                    person who may have COVID-19, for at least two minutes.
+                    @Within the last 7 days, you came within six metres of a
+                    person who has now declared symptoms of COVID-19.
                 </p>
                 <p>
-                    @Though we cannot guarantee that you have coronavirus, it is
-                    highly recommended for you to stay at home and to take
-                    appropriate measures to stay safe.
+                    @Though we cannot guarantee that you have contracted
+                    coronavirus, however if you begin to experience symptoms,
+                    please stay at home.
                 </p>
-                <p><a href="https://www.nhs.uk/conditions/coronavirus-covid-19/check-if-you-have-coronavirus-symptoms/" target="_blank" class="implied"><span class="red">@Learn more on the NHS website</span></a></p>
+                <p>
+                    @If you are symtomatic, please anonymously declare it on our
+                    <strong>Report COVID-19 infection</strong> page. Doing so
+                    will help stop the spread of COVID-19.
+                </p>
+                <p><a href="javascript:screens.moveForward('infectionAlert', 'infectionAlert_learnMore');" class="implied"><span class="red">@Learn more</span></a></p>
+                <p><strong>
+                    @If symptoms persist after 7 days, please visit
+                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
+                    If it is an emergency, please dial 999.
+                </strong></p>
                 <p><small>
                     @Proxi is not endorsed or otherwise affiliated with the NHS.
                     If you are using Proxi internationally, please seek medical
                     advice from your local medical service.
                 </small></p>
                 <button onclick="screens.moveBack('infectionAlert', 'home');" class="red fillWidth">@OK</button>
+            </div>
+        </main>
+        <main hidden id="infectionAlert_learnMore">
+            <nav class="red">
+                <button onclick="screens.moveBack('infectionAlert_learnMore', 'infectionAlert');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Virus information</span>
+            </nav>
+            <div class="content">
+                <h1>@What is COVID-19?</h1>
+                <p>
+                    @COVID-19 is a respiratory illness that can effect the lungs
+                    and airways. It is caused by a virus called coronavirus and
+                    is spread primarily through droplets generated when an
+                    infected person coughs or sneezes, or through droplets of
+                    saliva or discharge from the nose.
+                </p>
+                <h2>@What are the symptoms?</h2>
+                <p>
+                    @COVID-19 has many possible symptoms. Below is a list of
+                    many of them, with the topmost symptoms being the ones that
+                    are most likely.
+                </p>
+                <ul>
+                    <li>@Fever</li>
+                    <li>@Dry and persistent cough</li>
+                    <li>@Shortness of breath</li>
+                    <li>@Muscle aches and pains</li>
+                    <li>@Sore throat</li>
+                    <li>@Headache</li>
+                    <li>@Runny or sniffy nose</li>
+                    <li>@Diarrhea</li>
+                </ul>
+                <h2>@What should I do if I feel unwell?</h2>
+                <p>
+                    @If you feel unwell, do not go to your GP or hospital.
+                    Instead, visit
+                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
+                    Only call NHS 111 if you cannot get help online. If it is
+                    an emergency, please dial 999.
+                </p>
+                <h2>@I/a family member has experienced symptoms of COVID-19. How long do I have to stay inside for?</h2>
+                <p>
+                    @Public Health England recommends the following steps in
+                    regards to the duration of self-isolation:
+                </p>
+                <ul>
+                    <li>@If you live with others and you or one of them have symptoms of coronavirus, then all household members must stay at home and not leave the house for 14 days. The 14-day period starts from the day when the first person in the house became ill.</li>
+                    <li>@For anyone in the household who starts displaying symptoms, they need to stay at home for 7 days from when the symptoms appeared, regardless of what day they are on in the original 14-day isolation period.</li>
+                    <li>@PHE says that if you feel better after 7 days or self-isolating, you can return to your normal routine. If you have not shown signs of improvement, you should visit <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>, or by phone if you have no internet access.</li>
+                    <li>@A cough may persist for several weeks in some people, despite the coronavirus infection having cleared. A persistent cough alone does not meant hat you must continue to self-isolate for more than 7 days.</li>
+                </ul>
+                <h2>@Can I be tested for COVID-19?</h2>
+                <p>
+                    @Currently, only essential workers can be tested for
+                    COVID-19. To learn more and to see if you are an essential
+                    worker, see the
+                    <a href="javascript:window.open('https://www.gov.uk/guidance/coronavirus-covid-19-getting-tested');">Government guidelines</a>.
+                </p>
             </div>
         </main>
         <footer>
