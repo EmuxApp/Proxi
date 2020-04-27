@@ -21,7 +21,7 @@ var tracking = {
     },
     geolocationWatcher: null,
     aid: null, // Anonymous ID, used to identify user whilst keeping them anonymous
-    tick: 0
+    justAlerted: true
 };
 
 tracking.degreesToRadians = function(degrees) {
@@ -121,7 +121,13 @@ tracking.start = function() {
             }
 
             if (tracking.alertsOn && nearestDistance != null && nearestDistance <= 8) {
-                navigator.vibrate(100);
+                if (!tracking.justAlerted) {
+                    alerts.fire();
+                }
+
+                tracking.justAlerted = true;
+            } else {
+                tracking.justAlerted = false;
             }
         });
 

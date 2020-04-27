@@ -30,6 +30,7 @@
         <script src="screens.js"></script>
         <script src="map.js"></script>
         <script src="tracking.js"></script>
+        <script src="alerts.js"></script>
         <script src="script.js"></script>
         <script src="lang/en_GB.js"></script>
     </head>
@@ -134,10 +135,10 @@
                 <p class="alertsStatus">@Currently not alerting you</p>
             </header>
             <section class="options">
-                <button>
+                <button onclick="screens.moveForward('home', 'home_alertMode');">
                     <span>@Alert mode</span>
                     <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    <span>@Vibrate</span>
+                    <span class="alertsMode">@Vibrate</span>
                 </button>
                 <button>
                     <span>@Family contacts</span>
@@ -150,6 +151,46 @@
                     <span>0</span>
                 </button>
             </section>
+        </main>
+        <main hidden id="home_alertMode">
+            <nav>
+                <button onclick="screens.moveBack('home_alertMode', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Alert mode</span>
+            </nav>
+            <div class="content">
+                <section class="options">
+                    <button onclick="alerts.set(0, true);">
+                        <span>@Vibrate</span>
+                        <icon data-alert="0" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                </section>
+                <section class="options">
+                    <button onclick="alerts.set(1, true);">
+                        <span>@Radar</span>
+                        <icon data-alert="1" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(2, true);">
+                        <span>@Boing</span>
+                        <icon data-alert="2" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(3, true);">
+                        <span>@Oi!</span>
+                        <icon data-alert="3" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(4, true);">
+                        <span>@Drum</span>
+                        <icon data-alert="4" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(5, true);">
+                        <span>@Robot</span>
+                        <icon data-alert="5" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(6, true);">
+                        <span>@Bell</span>
+                        <icon data-alert="6" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                </section>
+            </div>
         </main>
         <main hidden id="map">
             <nav>
