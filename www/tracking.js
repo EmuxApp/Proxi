@@ -100,11 +100,11 @@ tracking.knownToInfect = function(raiseAlert = false) {
 
     if (raiseAlert) {
         if (localStorage.getItem("knownAboutInfection") != "true") {
-            // TODO: Alert the user that they may have been infected
+            screens.switch("infectionAlert");
         }
-
-        localStorage.setItem("knownAboutInfection", "true");
     }
+
+    localStorage.setItem("knownAboutInfection", "true");
 };
 
 tracking.start = function() {
@@ -234,10 +234,13 @@ tracking.stop = function() {
     }
 
     firebase.database().ref("users/" + currentUser.uid + "/aid").set(null);
-    firebase.database().ref("users/" + currentUser.uid + "/history/" + localStorage.getItem("trackingAid")).set({
-        time: Number(localStorage.getItem("outSince") || new Date().getTime()),
-        inContact: localStorage.getItem("inContact").split(",")
-    });
+
+    if (localStorage.getItem("inContact") != null && localStorage.getItem("inContact") || "") {
+        firebase.database().ref("users/" + currentUser.uid + "/history/" + localStorage.getItem("trackingAid")).set({
+            time: Number(localStorage.getItem("outSince") || new Date().getTime()),
+            inContact: localStorage.getItem("inContact").split(",")
+        });
+    }
 
     localStorage.removeItem("trackingAid");
     localStorage.removeItem("outSince");

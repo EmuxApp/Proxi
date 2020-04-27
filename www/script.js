@@ -251,6 +251,25 @@ function firstTime_homeAddressSetCurrent() {
     }, {timeout: 3000, enableHighAccuracy: true});
 }
 
+function settings_reportInfectionFinal() {
+    navigator.notification.confirm(
+        _("Final chance! If you do think you have the symptoms of COVID-19 or you have been tested positive, please continue. If not, please do not report your case."),
+        function(index) {
+            if (index == 1) {
+                tracking.knownToInfect();
+
+                navigator.notification.alert(
+                    _("Thank you for reporting your case. We rely on people to give accurate reports, so we thank you for taking part in helping us fight COVID-19."),
+                    function() {},
+                    _("Report sent")
+                );
+            }
+        },
+        _("Report COVID-19 infection?"),
+        [_("Report"), _("Cancel")]
+    );
+}
+
 function signOut() {
     navigator.notification.confirm(
         _("If you sign out, your home address will no longer be kept."),
@@ -266,6 +285,7 @@ function signOut() {
                     localStorage.removeItem("homeAddressSet");
                     localStorage.removeItem("homeAddressLatitude");
                     localStorage.removeItem("homeAddressLongitude");
+                    localStorage.removeItem("knownAboutInfection");
     
                     firebase.auth().signOut();
                 }, 3000);

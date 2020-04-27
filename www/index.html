@@ -256,7 +256,7 @@
                 <header class="settings">
                     <img src="media/profile.svg" alt="" class="profile" />
                     <h1>Oliver Jackson</h1>
-                    <p>07700 982415</p>
+                    <p>olij2001</p>
                     <button class="green">@Edit info</button>
                     <button onclick="signOut();" class="green">@Sign out</button>
                 </header>
@@ -269,8 +269,8 @@
                         <span>@Geolocation options</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
-                    <button>
-                        <span>@Notifications</span>
+                    <button onclick="screens.moveForward('settings', 'settings_reportInfection');">
+                        <span>@Report COVID-19 infection</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
                 </section>
@@ -292,6 +292,56 @@
                     <img src="media/emuxText.svg" alt="Emux" />
                     <small aria-label="@Made with love in Norwich, United Kingdom">@Made with &#x2764; in Norwich, United Kingdom</small>
                 </div>
+            </div>
+        </main>
+        <main hidden id="settings_reportInfection">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_reportInfection', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Report infection</span>
+            </nav>
+            <div class="content hasBottomButton">
+                <h1>@Submit a report</h1>
+                <p>
+                    @Do you have coronavirus symptoms (such as a high
+                    temperature or a new, continous cough)? If so, please report
+                    it here so that we can alert others who have come in contact
+                    with you within the past week.
+                </p>
+                <p>
+                    @If you have been tested positive for COVID-19, please
+                    report it too.
+                </p>
+                <p>
+                    @That way, we can track the spread of COVID-19 and help
+                    people to stay safe. We thank you for reporting your case.
+                </p>
+                <button onclick="settings_reportInfectionFinal();" class="bottom">@Report COVID-19 infection</button>
+            </div>
+        </main>
+        <main hidden id="infectionAlert">
+            <nav class="red">
+                <button onclick="screens.moveBack('infectionAlert', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Infection alert</span>
+            </nav>
+            <div class="content">
+                <img src="media/graphics/stats.svg" alt="@Graphic of person looking at a pie chart" class="headerGraphic" />
+                <h1>@You have come into contact with someone who may have coronavirus</h1>
+                <p>
+                    @Within the last 7 days, you came within two metres of a
+                    person who may have COVID-19, for at least two minutes.
+                </p>
+                <p>
+                    @Though we cannot guarantee that you have coronavirus, it is
+                    highly recommended for you to stay at home and to take
+                    appropriate measures to stay safe.
+                </p>
+                <p><a href="https://www.nhs.uk/conditions/coronavirus-covid-19/check-if-you-have-coronavirus-symptoms/" target="_blank" class="implied"><span class="red">@Learn more on the NHS website</span></a></p>
+                <p><small>
+                    @Proxi is not endorsed or otherwise affiliated with the NHS.
+                    If you are using Proxi internationally, please seek medical
+                    advice from your local medical service.
+                </small></p>
+                <button onclick="screens.moveBack('infectionAlert', 'home');" class="red fillWidth">@OK</button>
             </div>
         </main>
         <footer>
