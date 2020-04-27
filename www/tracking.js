@@ -9,6 +9,8 @@
 
 const GEOHASH_PRECISION = 10;
 const TRACKED_TIMEOUT = 30 * 1000; // 30 seconds
+const SPREAD_TIME = 2 * 60 * 1000; // 2 minutes
+const PREVIOUS_CONTACT_PERIOD = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 var tracking = {
     alertsOn: false,
@@ -21,7 +23,9 @@ var tracking = {
     },
     geolocationWatcher: null,
     aid: null, // Anonymous ID, used to identify user whilst keeping them anonymous
-    justAlerted: true
+    justAlerted: true,
+    alertedSince: null,
+    isInfected: false
 };
 
 tracking.degreesToRadians = function(degrees) {
@@ -87,6 +91,22 @@ tracking.sendLocation = function() {
     });
 };
 
+tracking.knownToInfect = function(raiseAlert = false) {
+    firebase.database().ref("users/" + currentUser.uid + "/history").once("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            firebase.database().ref("tracked/" + childSnapshot.key + "/wasInfected").set(true);
+        });
+    });
+
+    if (raiseAlert) {
+        if (localStorage.getItem("knownAboutInfection") != "true") {
+            // TODO: Alert the user that they may have been infected
+        }
+
+        localStorage.setItem("knownAboutInfection", "true");
+    }
+};
+
 tracking.start = function() {
     tracking.geolocationWatcher = navigator.geolocation.watchPosition(function(position) {
         tracking.currentLocation.latitude = position.coords.latitude;
@@ -102,6 +122,7 @@ tracking.start = function() {
 
         tracking.getNearby(tracking.currentLocation.latitude, tracking.currentLocation.longitude, 20, function(tracked) {
             var nearestDistance = null;
+            var nearestAid = null;
             
             for (var i = 0; i < tracked.length; i++) {
                 if (new Date().getTime() - tracked[i].time <= TRACKED_TIMEOUT && tracked[i].aid != localStorage.getItem("trackingAid")) {
@@ -116,13 +137,26 @@ tracking.start = function() {
 
                     if (nearestDistance == null || distance > nearestDistance) {
                         nearestDistance = distance;
+                        nearestAid = tracked[i].aid;
                     }
                 }
             }
 
-            if (tracking.alertsOn && nearestDistance != null && nearestDistance <= 8) {
+            if (nearestDistance != null && nearestDistance <= 8) {
                 if (!tracking.justAlerted) {
-                    alerts.fire();
+                    if (tracking.alertsOn) {
+                        alerts.fire();
+                    }
+                    
+                    tracking.alertedSince = new Date().getTime();
+                } else {
+                    if (new Date().getTime() - tracking.alertedSince <= SPREAD_TIME) {
+                        if (localStorage.getItem("inContact") == "" || localStorage.getItem("inContact") == null) {
+                            localStorage.setItem("inContact", nearestAid);
+                        } else {
+                            localStorage.setItem("inContact", localStorage.getItem("inContact") + "," + nearestAid);
+                        }
+                    }
                 }
 
                 tracking.justAlerted = true;
@@ -135,6 +169,7 @@ tracking.start = function() {
             if (localStorage.getItem("trackingAid") == null) {
                 localStorage.setItem("trackingAid", core.generateKey());
                 localStorage.setItem("outSince", String(new Date().getTime()));
+                localStorage.setItem("inContact", "");
 
                 firebase.database().ref("users/" + currentUser.uid + "/aid").set(localStorage.getItem("trackingAid")).then(function() {
                     tracking.sendLocation();
@@ -154,18 +189,43 @@ tracking.start = function() {
             }
         } else {
             if (localStorage.getItem("trackingAid") != null) {
+                firebase.database().ref("users/" + currentUser.uid + "/aid").set(null);
+                firebase.database().ref("users/" + currentUser.uid + "/history/" + localStorage.getItem("trackingAid")).set({
+                    time: Number(localStorage.getItem("outSince") || new Date().getTime()),
+                    inContact: localStorage.getItem("inContact").split(",")
+                });
+
                 localStorage.removeItem("trackingAid");
                 localStorage.removeItem("outSince");
-
-                firebase.database().ref("tracked/" + localStorage.getItem("trackingAid")).set(null).then(function() {
-                    firebase.databse().ref("users/" + currentUser.uid + "/aid").set(null);
-                });
+                localStorage.removeItem("inContact");
             }
 
             $(".homeDistance").text(_("At home"));
             $(".homeOut").text("");
         }
     }, function() {}, {timeout: 1000, maximumAge: 1000, enableHighAccuracy: true});
+
+    firebase.database().ref("users/" + currentUser.uid + "/history").once("value", function(snapshot) {
+        if (snapshot.val() != null) {
+            for (var aid in snapshot.val()) {
+                var contactAids = snapshot.val()[aid].inContact;
+
+                if (contactAids != null) {
+                    for (var i = 0; i < contactAids.length; i++) {
+                        firebase.database().ref("tracked/" + contactAids[i]).on("value", function(childSnapshot) {
+                            if (childSnapshot.val() != null) {
+                                if (childSnapshot.val().wasInfected == true && new Date().getTime() - childSnapshot.val().time <= PREVIOUS_CONTACT_PERIOD) {
+                                    tracking.isInfected = true;
+
+                                    tracking.knownToInfect(true);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    });
 };
 
 tracking.stop = function() {
@@ -173,11 +233,15 @@ tracking.stop = function() {
         navigator.geolocation.clearWatch(tracking.geolocationWatcher);
     }
 
-    firebase.database().ref("tracked/" + localStorage.getItem("trackingAid")).set(null).then(function() {
-        firebase.databse().ref("users/" + currentUser.uid + "/aid").set(null);
+    firebase.database().ref("users/" + currentUser.uid + "/aid").set(null);
+    firebase.database().ref("users/" + currentUser.uid + "/history/" + localStorage.getItem("trackingAid")).set({
+        time: Number(localStorage.getItem("outSince") || new Date().getTime()),
+        inContact: localStorage.getItem("inContact").split(",")
     });
 
     localStorage.removeItem("trackingAid");
+    localStorage.removeItem("outSince");
+    localStorage.removeItem("inContact");
 
     tracking.toggleAlerts(false);
 };

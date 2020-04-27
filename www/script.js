@@ -256,13 +256,19 @@ function signOut() {
         _("If you sign out, your home address will no longer be kept."),
         function(index) {
             if (index == 1) {
-                localStorage.removeItem("accountSetupComplete");
-                localStorage.removeItem("dataAcceptConnect");
-                localStorage.removeItem("homeAddressSet");
-                localStorage.removeItem("homeAddressLatitude");
-                localStorage.removeItem("homeAddressLongitude");
+                tracking.stop();
 
-                firebase.auth().signOut();
+                screens.switch("firstTime_intro");
+
+                setTimeout(function() {
+                    localStorage.removeItem("accountSetupComplete");
+                    localStorage.removeItem("dataAcceptConnect");
+                    localStorage.removeItem("homeAddressSet");
+                    localStorage.removeItem("homeAddressLatitude");
+                    localStorage.removeItem("homeAddressLongitude");
+    
+                    firebase.auth().signOut();
+                }, 3000);
             }
         },
         _("Sign out?"),
