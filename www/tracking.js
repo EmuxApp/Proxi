@@ -94,7 +94,9 @@ tracking.sendLocation = function() {
 tracking.knownToInfect = function(raiseAlert = false) {
     firebase.database().ref("users/" + currentUser.uid + "/history").once("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            firebase.database().ref("tracked/" + childSnapshot.key + "/wasInfected").set(true);
+            if (childSnapshot.key != null) {
+                firebase.database().ref("tracked/" + childSnapshot.key + "/wasInfected").set(true);
+            }
         });
     });
 
