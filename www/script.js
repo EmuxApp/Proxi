@@ -328,7 +328,7 @@ document.addEventListener("deviceready", function() {
                     screens.switch("firstTime_intro");
 
                     navigator.notification.alert(
-                        _("We coudln't finish setting up your account. Please contact our support service or try making a new account."),
+                        _("We couldn't finish setting up your account. Please contact our support service or try making a new account."),
                         function() {},
                         _("We have a major problem...")
                     );
