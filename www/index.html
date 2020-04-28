@@ -110,15 +110,14 @@
                 </li>
             </ul>
             <p>
-                @By using Proxi, you accept our <a href="#">
-                Terms of Service</a> and <a href="#">Privacy
-                Policy</a>.
+                @By using Proxi, you accept our <a href="#">Terms of Service</a>
+                and <a href="#">Privacy Policy</a>.
             </p>
             <!-- TODO: Add screen that shows Terms of Service, as well as another one for Privacy Policy -->
             <button onclick="firstTime_accept();" class="red fillWidth" id="firstTime_accept">@Accept</button>
         </main>
         <main hidden class="fillScreen center" id="firstTime_homeAddress">
-            <img src="media/graphics/home.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <img src="media/graphics/home.svg" alt="@Graphic of a house" class="headerGraphic" />
             <h1>@Set your home address</h1>
             <p>
                 @We won't track you when you're within 20m of your home address.
@@ -155,10 +154,10 @@
                     <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     <span class="alertsMode">@Vibrate</span>
                 </button>
-                <button>
+                <button onclick="screens.moveForward('home', 'home_familyContacts');">
                     <span>@Family contacts</span>
                     <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    <span>0</span>
+                    <span class="familyContactsCount">0</span>
                 </button>
                 <button>
                     <span>@Data sharing</span>
@@ -205,6 +204,21 @@
                         <icon data-alert="6" class="alertsCheckmark" aria-label="@Enabled">done</icon>
                     </button>
                 </section>
+            </div>
+        </main>
+        <main hidden id="home_familyContacts">
+            <nav>
+                <button onclick="screens.moveBack('home_familyContacts', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Family contacts</span>
+            </nav>
+            <div class="content">
+                <h2 class="optionHeader">@Current members</h2>
+                <section class="options" id="family_currentMembersList"></section>
+                <h2 class="optionHeader">@Add new member</h2>
+                <section class="options">
+                    <input placeholder="@Enter a username" onkeyup="family_newMemberList();" id="family_newMemberInput"></input>
+                </section>
+                <section class="options" id="family_newMemberList"></section>
             </div>
         </main>
         <main hidden id="map">

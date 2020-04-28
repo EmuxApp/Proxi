@@ -11,6 +11,7 @@ const GEOHASH_PRECISION = 10;
 const TRACKED_TIMEOUT = 30 * 1000; // 30 seconds
 const SPREAD_TIME = 2 * 60 * 1000; // 2 minutes
 const PREVIOUS_CONTACT_PERIOD = 7 * 24 * 60 * 60 * 1000; // 1 week
+const FAMILY_RESCAN_INTERVAL = 10 * 60 * 1000; // 10 minutes
 
 var tracking = {
     alertsOn: false,
@@ -109,6 +110,18 @@ tracking.knownToInfect = function(raiseAlert = false) {
     localStorage.setItem("knownAboutInfection", "true");
 };
 
+tracking.rescanFamily = function(reset = false) {
+    if (reset) {
+        currentFamilyAids = [];
+    }
+
+    for (var i = 0; i < currentFamily.length; i++) {
+        firebase.database().ref("users/" + currentFamily[i] + "/aid").once("value", function(snapshot) {
+            currentFamilyAids.push(snapshot.val());
+        });
+    }
+};
+
 tracking.start = function() {
     tracking.geolocationWatcher = navigator.geolocation.watchPosition(function(position) {
         tracking.currentLocation.latitude = position.coords.latitude;
@@ -137,9 +150,11 @@ tracking.start = function() {
                         longitude
                     );
 
-                    if (nearestDistance == null || distance > nearestDistance) {
-                        nearestDistance = distance;
-                        nearestAid = tracked[i].aid;
+                    if (currentFamilyAids.indexOf(tracked[i].aid) < 0) {
+                        if (nearestDistance == null || distance > nearestDistance) {
+                            nearestDistance = distance;
+                            nearestAid = tracked[i].aid;
+                        }
                     }
                 }
             }
@@ -278,3 +293,7 @@ tracking.toggleAlerts = function(mode = null) {
         $("p.alertsStatus").text(_("Currently not alerting you"));
     }
 };
+
+setInterval(function() {
+    tracking.rescanFamily();
+}, FAMILY_RESCAN_INTERVAL);

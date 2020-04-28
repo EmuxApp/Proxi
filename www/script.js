@@ -27,6 +27,10 @@ var currentUser = {
     uid: null
 };
 
+var currentFamilyReference = null;
+var currentFamily = [];
+var currentFamilyAids = [];
+
 function firstTime_validateAccount() {
     if ($("#firstTime_username").val().match(/^[a-zA-Z0-9]{1,20}$/) && $("#firstTime_password").val().length >= 6) {
         $("#firstTime_validateAccount").prop("disabled", true);
@@ -305,6 +309,128 @@ function signOut() {
     );
 }
 
+function family_currentMembersList() {
+    if (currentFamilyReference != null) {
+        currentFamilyReference.off();
+    }
+
+    currentFamilyReference = firebase.database().ref("users/" + currentUser.uid + "/family");
+    
+    currentFamilyReference.on("value", function(snapshot) {
+        $("#family_currentMembersList").html("");
+
+        if (snapshot.val() != null) {
+            currentFamily = Object.keys(snapshot.val());
+
+            for (var i = 0; i < currentFamily.length; i++) {
+                (function(familyUid) {
+                    firebase.database().ref("users/" + familyUid + "/username").once("value", function(childSnapshot) {
+                        $("#family_currentMembersList").append(
+                            $("<button>")
+                                .append([
+                                    $("<span>").text(childSnapshot.val()),
+                                    $("<icon aria-label='@Enabled'>").text("done")
+                                ])
+                                .on("click", function() {
+                                    navigator.notification.confirm(
+                                        _("When you remove a family contact, they will now begin to receive alerts from your presence."),
+                                        function(index) {
+                                            if (index == 1) {
+                                                firebase.database().ref("users/" + currentUser.uid + "/family/" + familyUid).set(null);
+
+                                                setTimeout(function() {
+                                                    tracking.rescanFamily(true);
+                                                }, 3000);
+                                                
+                                            }
+                                        },
+                                        _("Remove family contact?"),
+                                        [_("Remove"), _("Cancel")]
+                                    );
+                                })
+                        );
+                    });
+                })(currentFamily[i]);
+            }
+
+            $(".familyContactsCount").text(currentFamily.length);
+        } else {
+            currentFamily = [];
+
+            $("#family_currentMembersList").append([
+                $("<img src='media/graphics/home.svg' alt='@Graphic of a house' class='headerGraphicSmaller'>"),
+                $("<h3 class='center'>").text(_("No family contacts yet")),
+                $("<p class='center'>").text(_("Add family contacts so that your family members are not alerted by your presence. If they do the same, you will not be alerted by them too."))
+            ]);
+
+            $(".familyContactsCount").text(0);
+        }
+    });
+}
+
+function family_newMemberList() {
+    var usernameQuery = $("#family_newMemberInput").val().toLowerCase().trim();
+
+    if (usernameQuery != "") {
+        firebase.database().ref("usernames").orderByKey().startAt(usernameQuery).endAt(usernameQuery + "\uf8ff").limitToFirst(20).once("value", function(snapshot) {
+            if (snapshot.val() != null) {
+                $("#family_newMemberList").html("");
+
+                for (var username in snapshot.val()) {
+                    (function(uid) {
+                        firebase.database().ref("users/" + uid + "/username").once("value", function(childSnapshot) { // We get the username so that we have the capitalised version
+                            $("#family_newMemberList button[data-username='" + childSnapshot.val().toLowerCase() + "']").remove();
+                            
+                            $("#family_newMemberList").append(
+                                $("<button>")
+                                    .attr("data-username", childSnapshot.val().toLowerCase())
+                                    .append(
+                                        $("<span>").text(childSnapshot.val())
+                                    )
+                                    .on("click", function(event) {
+                                        if (uid != currentUser.uid) {
+                                            if (currentFamily.indexOf(uid) < 0) {
+                                                firebase.database().ref("users/" + currentUser.uid + "/family/" + uid).set(true);
+        
+                                                $(event.target).append(
+                                                    $("<icon aria-label='@Enabled'>").text("done")
+                                                );
+        
+                                                currentFamily.push(uid);
+                                                tracking.rescanFamily();
+                                            } else {
+                                                navigator.notification.alert(
+                                                    _("This family contact has already been added to your family. You can remove them under the 'Current members' section."),
+                                                    function() {},
+                                                    _("Family contact already added")
+                                                );
+                                            }
+                                        } else {
+                                            navigator.notification.alert(
+                                                _("You won't be alerted by your own presence, because that's just weird."),
+                                                function() {},
+                                                _("This is you!")
+                                            );
+                                        }
+                                    })
+                            );
+                        });
+                    })(snapshot.val()[username]);
+                }
+            } else {
+                $("#family_newMemberList").html("");
+
+                $("#family_newMemberList").append([
+                    $("<h3 class='center'>").text(_("No results found")),
+                    $("<p class='center'>").text(_("Double-check the username that you typed in."))
+                ]);
+            }
+        });
+    } else {
+        $("#family_newMemberList").html("");
+    }
+}
+
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
@@ -318,7 +444,7 @@ document.addEventListener("deviceready", function() {
                     firebase.database().ref("users/" + currentUser.uid).set({
                         username: $("#firstTime_username").val()
                     }).then(function() {
-                        firebase.database().ref("usernames/" + $("#firstTime_username").val()).set(currentUser.uid).then(function() {
+                        firebase.database().ref("usernames/" + $("#firstTime_username").val().toLowerCase()).set(currentUser.uid).then(function() {
                             localStorage.setItem("accountSetupComplete", "true");
 
                             firstTime_acceptConnect();
@@ -344,6 +470,7 @@ document.addEventListener("deviceready", function() {
                 screens.switch("home");
 
                 tracking.start();
+                family_currentMembersList();
             }
         } else {
             currentUser.uid = null;
@@ -355,6 +482,10 @@ document.addEventListener("deviceready", function() {
             }
 
             tracking.stop();
+
+            if (currentFamilyReference != null) {
+                currentFamilyReference.off();
+            }
         }
 
         setTimeout(function() {
