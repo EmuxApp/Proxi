@@ -311,8 +311,11 @@ function settings_editInfoUnlock() {
     ).then(function() {
         screens.moveForward("settings_editInfoSensitive", "settings_editInfo");
 
-        $("#settings_editInfoSensitivePassword").val("");
         $("#settings_editInfoSensitiveButton").prop("disabled", false);
+
+        setTimeout(function() {
+            $("#settings_editInfoSensitivePassword").val("");
+        }, 500);
     }).catch(function(error) {
         if (error.code == "auth/user-disabled") {
             navigator.notification.alert(
