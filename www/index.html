@@ -127,6 +127,21 @@
             <a href="javascript:firstTime_homeAddressSetCurrent();" class="implied buttonLike"><span class="red">@I'm already at home</span></a>
             <section class="options" id="firstTime_homeAddressList"></div>
         </main>
+        <main hidden class="fillScreen center hasBottomButton" id="firstTime_connectError">
+            <img src="media/graphics/user.svg" alt="@Graphic of phone displaying text messages" class="headerGraphic" />
+            <h1>@We need your help to continue</h1>
+            <p>
+                @It looks like our permission to use your phone's GPS sensor has
+                been rejected. Using the sensor is critical to the functionality
+                of Proxi, and we strongly suggest that you allow Proxi to use
+                your GPS all of the time to allow us to do contact tracing.
+            </p>
+            <p><strong>
+                @Please change the GPS permissions for Proxi in your phone's
+                Settings app.
+            </strong></p>
+            <button onclick="firstTime_acceptConnect(true);" class="red bottom" id="firstTime_connectErrorButton">@Try again</button>
+        </main>
         <main hidden class="noNav" id="home">
             <header class="home">
                 <h1>@Proxi</h1>
@@ -339,9 +354,9 @@
                     please stay at home.
                 </p>
                 <p>
-                    @If you are symtomatic, please anonymously declare it on our
-                    <strong>Report COVID-19 infection</strong> page. Doing so
-                    will help stop the spread of COVID-19.
+                    @If you are symptomatic, please anonymously declare it on
+                    our <strong>Report COVID-19 infection</strong> page. Doing
+                    so will help stop the spread of COVID-19.
                 </p>
                 <p><a href="javascript:screens.moveForward('infectionAlert', 'infectionAlert_learnMore');" class="implied"><span class="red">@Learn more</span></a></p>
                 <p><strong>

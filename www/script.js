@@ -19,7 +19,8 @@ const firebaseConfig = {
 };
 
 var firstTimeStatus = {
-    afterSignIn: false
+    afterSignIn: false,
+    justSignedOut: false
 };
 
 var currentUser = {
@@ -136,54 +137,60 @@ function firstTime_signIn() {
     }
 }
 
-function firstTime_acceptConnect() {
-    $("#firstTime_validateAccount").prop("disabled", true);
+function firstTime_acceptConnect(fromDenied = false) {
+    $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", true);
 
     navigator.geolocation.getCurrentPosition(function() {
         if (firstTimeStatus.afterSignIn) {
-            screens.moveForward("firstTime_signIn", "firstTime_homeAddress");
-            $("#firstTime_signInButton").prop("disabled", false);
+            screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_signIn", "firstTime_homeAddress");
+            $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
 
             firstTimeStatus.afterSignIn = false;
         } else {
-            screens.moveForward("firstTime_dataUsage", "firstTime_homeAddress");
+            screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_dataUsage", "firstTime_homeAddress");
         }
 
         localStorage.setItem("dataAcceptConnect", "true");
 
-        $("#firstTime_validateAccount").prop("disabled", false);
+        $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", false);
     }, function(error) {
         if (error.PERMISSION_DENIED) {
             // TODO: Show a screen that tells the user to change permission settings manually
 
             if (core.getURLParameter("test") == "true") { // Skip if debugging
                 if (firstTimeStatus.afterSignIn) {
-                    screens.moveForward("firstTime_signIn", "firstTime_homeAddress");
-                    $("#firstTime_signInButton").prop("disabled", false);
+                    screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_signIn", "firstTime_homeAddress");
+                    $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
 
                     firstTimeStatus.afterSignIn = false;
                 } else {
-                    screens.moveForward("firstTime_dataUsage", "firstTime_homeAddress");
+                    screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_dataUsage", "firstTime_homeAddress");
                 }
 
                 localStorage.setItem("dataAcceptConnect", "true");
+            } else {
+                $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
+
+                if (!fromDenied) {
+                    screens.moveForward("firstTime_signIn", "firstTime_connectError");
+                }
             }
         } else {
             // Other errors that are not permission-based are ignored at this time
 
             if (firstTimeStatus.afterSignIn) {
-                screens.moveForward("firstTime_signIn", "firstTime_homeAddress");
-                $("#firstTime_signInButton").prop("disabled", false);
+                screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_signIn", "firstTime_homeAddress");
+                $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
 
                 firstTimeStatus.afterSignIn = false;
             } else {
-                screens.moveForward("firstTime_dataUsage", "firstTime_homeAddress");
+                screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_dataUsage", "firstTime_homeAddress");
             }
 
             localStorage.setItem("dataAcceptConnect", "true");
         }
 
-        $("#firstTime_validateAccount").prop("disabled", false);
+        $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", false);
     }, {timeout: 5000});
 }
 
@@ -286,6 +293,8 @@ function signOut() {
                     localStorage.removeItem("homeAddressLatitude");
                     localStorage.removeItem("homeAddressLongitude");
                     localStorage.removeItem("knownAboutInfection");
+
+                    firstTimeStatus.justSignedOut = true;
     
                     firebase.auth().signOut();
                 }, 3000);
@@ -323,6 +332,9 @@ document.addEventListener("deviceready", function() {
                         function() {},
                         _("We have a major problem...")
                     );
+
+                    $("#firstTime_signInButton").prop("disabled", false);
+                    $("#firstTime_accept").prop("disabled", false);
                 }
             } else if (localStorage.getItem("dataAcceptConnect") != "true") {
                 firstTime_acceptConnect();
@@ -336,7 +348,11 @@ document.addEventListener("deviceready", function() {
         } else {
             currentUser.uid = null;
 
-            screens.switch("firstTime_intro");
+            if (!firstTimeStatus.justSignedOut) {
+                screens.switch("firstTime_intro");
+            } else {
+                firstTimeStatus.justSignedOut = false;
+            }
 
             tracking.stop();
         }

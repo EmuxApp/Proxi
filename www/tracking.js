@@ -197,6 +197,16 @@ tracking.start = function() {
                     inContact: localStorage.getItem("inContact").split(",")
                 });
 
+                firebase.database().ref("tracked/" + localStorage.getItem("inContact").split(",")).on("value", function(snapshot) {
+                    if (snapshot.val() != null) {
+                        if (snapshot.val().wasInfected == true && new Date().getTime() - snapshot.val().time <= PREVIOUS_CONTACT_PERIOD) {
+                            tracking.isInfected = true;
+
+                            tracking.knownToInfect(true);
+                        }
+                    }
+                });
+
                 localStorage.removeItem("trackingAid");
                 localStorage.removeItem("outSince");
                 localStorage.removeItem("inContact");
