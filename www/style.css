@@ -221,6 +221,7 @@ header.settings {
 header.settings img.profile {
     width: 50px;
     height: 50px;
+    border-radius: 25px;
     object-fit: cover;
 }
 
@@ -394,14 +395,19 @@ section.options button icon {
     float: left;
 }
 
-section.options button span:nth-child(3) {
+section.options button:not(.achievement) span:nth-of-type(2) {
+    width: 30vw;
     margin-left: 10px;
     margin-right: 10px;
     float: right;
     color: rgba(0, 0, 0, 0.15);
+    text-align: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-[dir="rtl"] section.options button span:nth-child(3) {
+[dir="rtl"] section.options button:not(.achievement) span:nth-of-type(2) {
     float: left;
 }
 

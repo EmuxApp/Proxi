@@ -24,9 +24,12 @@ var firstTimeStatus = {
 };
 
 var currentUser = {
-    uid: null
+    uid: null,
+    username: null,
+    fullName: null
 };
 
+var currentUserSettingsReference = null;
 var currentFamilyReference = null;
 var currentFamily = [];
 var currentFamilyAids = [];
@@ -221,6 +224,8 @@ function firstTime_homeAddressListProximity(latitude = 0, longitude = 0) {
                             screens.moveBack("firstTime_homeAddress", "home");
 
                             tracking.start();
+                            settings_currentUserSettings();
+                            family_currentMembersList();
                         })
                     );
                 })(data.features[i]);
@@ -253,6 +258,8 @@ function firstTime_homeAddressSetCurrent() {
         screens.moveBack("firstTime_homeAddress", "home");
 
         tracking.start();
+        settings_currentUserSettings();
+        family_currentMembersList();
     }, function() {
         navigator.notification.alert(
             _("Please enter your address instead."),
@@ -260,6 +267,196 @@ function firstTime_homeAddressSetCurrent() {
             _("We couldn't get your current location")
         );
     }, {timeout: 3000, enableHighAccuracy: true});
+}
+
+function settings_currentUserSettings() {
+    if (currentUserSettingsReference != null) {
+        currentUserSettingsReference.off();
+    }
+
+    currentUserSettingsReference = firebase.database().ref("users/" + currentUser.uid);
+
+    currentUserSettingsReference.on("value", function(snapshot) {
+        $(".username").text(snapshot.val().username);
+        $(".fullName").text(snapshot.val().fullName || "");
+
+        currentUser.username = snapshot.val().username;
+        currentUser.fullName = snapshot.val().fullName;
+
+        $(".fullNameOrUsername").text(snapshot.val().fullName ? snapshot.val().fullName : snapshot.val().username);
+        $(".usernameOrNone").text(snapshot.val().fullName ? snapshot.val().username : "");
+
+        if (snapshot.val().profileImageType == "png") {
+            firebase.storage().ref("users/" + currentUser.uid + "/profile.png").getDownloadURL().then(function(url) {
+                $(".myProfile").attr("src", url);
+            });
+        } else if (snapshot.val().profileImageType == "jpg") {
+            firebase.storage().ref("users/" + currentUser.uid + "/profile.jpg").getDownloadURL().then(function(url) {
+                $(".myProfile").attr("src", url);
+            });
+        } else {
+            $(".myProfile").attr("src", "media/profile.svg");
+        }
+    });
+}
+
+function settings_editInfoUnlock() {
+    $("#settings_editInfoSensitiveButton").prop("disabled", true);
+
+    firebase.auth().currentUser.reauthenticateWithCredential(
+        firebase.auth.EmailAuthProvider.credential(
+            firebase.auth().currentUser.email,
+            $("#settings_editInfoSensitivePassword").val()
+        )
+    ).then(function() {
+        screens.moveForward("settings_editInfoSensitive", "settings_editInfo");
+
+        $("#settings_editInfoSensitivePassword").val("");
+        $("#settings_editInfoSensitiveButton").prop("disabled", false);
+    }).catch(function(error) {
+        if (error.code == "auth/user-disabled") {
+            navigator.notification.alert(
+                _("Emux Technologies have decided to lock your Proxi account manually. Please contact support to learn why and to get it unlocked again."),
+                function() {},
+                _("Your account has been locked")
+            );
+        } else if (error.code == "auth/user-not-found") {
+            navigator.notification.alert(
+                _("The user that you are currently signed into may have been deleted."),
+                function() {},
+                _("User not found")
+            );
+        } else if (error.code == "auth/wrong-password") {
+            navigator.notification.alert(
+                _("The password you entered is wrong and does not match this account's password. Try typing it in again."),
+                function() {},
+                _("Wrong password")
+            );
+        } else {
+            navigator.notification.alert(
+                _("It looks like we can't sign into this account. Please check your internet connection and try again."),
+                function() {},
+                _("We have a bit of a problem...")
+            );
+        }
+
+        $("#settings_editInfoSensitivePassword").val("");
+        $("#settings_editInfoSensitiveButton").prop("disabled", false);
+    });
+}
+
+function settings_changeUsername() {
+    navigator.notification.prompt(
+        _("Keep in mind: your username can only contain letters and numbers, and cannot exceed 20 characters."),
+        function(result) {
+            if (result.buttonIndex == 1) {
+                if (result.input1.match(/^[a-zA-Z0-9]{1,20}$/) && result.input1 != "") {
+                    firebase.database().ref("usernames/" + result.input1.toLowerCase()).once("value", function(snapshot) {
+                        if (snapshot.val() == null) {
+                            firebase.auth().currentUser.updateEmail(result.input1.toLowerCase() + "@users.proxi.emux.app").then(function() {
+                                firebase.database().ref("usernames/" + currentUser.username.toLowerCase()).set(null).then(function() {
+                                    firebase.database().ref("usernames/" + result.input1.toLowerCase()).set(currentUser.uid).then(function() {
+                                        firebase.database().ref("users/" + currentUser.uid + "/username").set(result.input1);
+                                    });
+                                }).catch(function() {
+                                    navigator.notification.alert(
+                                        _("Check your connection to the internet and try again."),
+                                        function() {},
+                                        _("Couldn't change username")
+                                    );
+                                });
+                            }).catch(function() {
+                                navigator.notification.alert(
+                                    _("Check your connection to the internet and try again."),
+                                    function() {},
+                                    _("Couldn't change username")
+                                );
+                            });;
+                        } else {
+                            navigator.notification.alert(
+                                _("There is already an account with that username. Try another one!"),
+                                function() {},
+                                _("Username taken")
+                            );
+                        }
+                    }).catch(function() {
+                        navigator.notification.alert(
+                            _("Check your connection to the internet and try again."),
+                            function() {},
+                            _("Couldn't change username")
+                        );
+                    });
+                } else if (result.input1 == "") {
+                    navigator.notification.alert(
+                        _("Your username cannot be blank."),
+                        function() {},
+                        _("Username not specified")
+                    );
+                } else {
+                    navigator.notification.alert(
+                        _("Your username must only contain letters and numbers, and cannot exceed 20 characters."),
+                        function() {},
+                        _("Invalid username")
+                    );
+                }
+            }
+        },
+        _("Change username"),
+        [_("Save"), _("Cancel")],
+        currentUser.username
+    )
+}
+
+function settings_changeFullName() {
+    navigator.notification.prompt(
+        _("Your full name can be used by selected third parties to identify you."),
+        function(result) {
+            if (result.buttonIndex == 1) {
+                if (result.input1.trim() != "") {
+                    firebase.database().ref("users/" + currentUser.uid + "/fullName").set(result.input1.trim().substring(0, 50)).catch(function() {
+                        navigator.notification.alert(
+                            _("Check your connection to the internet and try again."),
+                            function() {},
+                            _("Couldn't change full name")
+                        );
+                    });
+                }
+            }
+        },
+        _("Change full name"),
+        [_("Save"), _("Cancel")],
+        currentUser.fullName || ""
+    )
+}
+
+function settings_changeProfilePicture() {
+    navigator.camera.getPicture(function(dataUrl) {
+        console.log(dataUrl);
+
+        firebase.storage().ref("users/" + currentUser.uid + "/profile.png").putString("data:image/png;base64," + dataUrl, "data_url").then(function() {
+            $(".myProfile").attr("src", "data:image/png;base64," + dataUrl);
+            
+            firebase.database().ref("users/" + currentUser.uid + "/profileImageType").set("png");
+        }).catch(function() {
+            setTimeout(function() {
+                navigator.notification.alert(
+                    _("Check your connection to the internet or try choosing a smaller picture."),
+                    function() {},
+                    _("Couldn't change profile picture")
+                );
+            });
+        });
+    }, function() {}, {
+        quality: 100,
+        targetWidth: 100,
+        targetHeight: 100,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: Camera.EncodingType.PNG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: true,
+        correctOrientation: true
+    });
 }
 
 function settings_reportInfectionFinal() {
@@ -470,10 +667,13 @@ document.addEventListener("deviceready", function() {
                 screens.switch("home");
 
                 tracking.start();
+                settings_currentUserSettings();
                 family_currentMembersList();
             }
         } else {
             currentUser.uid = null;
+            currentUser.username = null;
+            currentUser.fullName = null;
 
             if (!firstTimeStatus.justSignedOut) {
                 screens.switch("firstTime_intro");
@@ -482,6 +682,10 @@ document.addEventListener("deviceready", function() {
             }
 
             tracking.stop();
+
+            if (currentUserSettingsReference != null) {
+                currentUserSettingsReference.off();
+            }
 
             if (currentFamilyReference != null) {
                 currentFamilyReference.off();

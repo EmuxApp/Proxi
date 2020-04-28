@@ -239,7 +239,7 @@
             </nav>
             <div class="content">
                 <header class="awards">
-                    <a href="javascript:void(0);" class="implied"><span>@Username</span> <icon aria-label="@Edit">edit</icon></a>
+                    <a href="javascript:screens.moveForward('awards', 'settings_editInfoSensitive');" class="implied"><span class="username"></span> <icon aria-label="@Edit">edit</icon></a>
                     <img src="media/levels/1.svg" class="level" />
                 </header>
                 <div class="center">
@@ -283,10 +283,10 @@
             </nav>
             <div class="content">
                 <header class="settings">
-                    <img src="media/profile.svg" alt="" class="profile" />
-                    <h1>Oliver Jackson</h1>
-                    <p>olij2001</p>
-                    <button class="green">@Edit info</button>
+                    <img src="media/profile.svg" alt="" class="profile myProfile" />
+                    <h1 class="fullNameOrUsername"></h1>
+                    <p class="usernameOrNone"></p>
+                    <button onclick="screens.moveForward('settings', 'settings_editInfoSensitive');" class="green">@Edit info</button>
                     <button onclick="signOut();" class="green">@Sign out</button>
                 </header>
                 <section class="options">
@@ -318,9 +318,58 @@
                     </button>
                 </section>
                 <div class="signature">
-                    <img src="media/emuxText.svg" alt="Emux" />
+                    <img src="media/emuxText.svg" alt="@Emux" />
                     <small aria-label="@Made with love in Norwich, United Kingdom">@Made with &#x2764; in Norwich, United Kingdom</small>
                 </div>
+            </div>
+        </main>
+        <main hidden id="settings_editInfoSensitive">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_editInfoSensitive', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Edit info</span>
+            </nav>
+            <div class="content hasBottomButton">
+                <h1>@We'll need to check it's you before continuing</h1>
+                <p>
+                    @Just for security, we'll need to verify that you're in
+                    control! Simply enter your password below to continue.
+                </p>
+                <input type="password" placeholder="@Enter password" id="settings_editInfoSensitivePassword" />
+                <button onclick="settings_editInfoUnlock();" class="bottom" id="settings_editInfoSensitiveButton">@Continue</button>
+            </div>
+        </main>
+        <main hidden id="settings_editInfo">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_editInfo', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Edit info</span>
+            </nav>
+            <div class="content">
+                <h2 class="optionHeader">@Identity</h2>
+                <section class="options">
+                    <button onclick="settings_changeUsername();">
+                        <span>@Username</span>
+                        <icon aria-hidden="true">edit</icon>
+                        <span class="username"></span>
+                    </button>
+                    <button onclick="settings_changeFullName();">
+                        <span>@Full name</span>
+                        <icon aria-hidden="true">edit</icon>
+                        <span class="fullName"></span>
+                    </button>
+                    <button onclick="settings_changeProfilePicture();">
+                        <span>@Change profile picture</span>
+                    </button>
+                </section>
+                <h2 class="optionHeader">@Security</h2>
+                <section class="options">
+                    <button>
+                        <span>@Change password</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                    <button>
+                        <span>@Delete account</span>
+                    </button>
+                </section>
             </div>
         </main>
         <main hidden id="settings_reportInfection">
