@@ -167,7 +167,7 @@ function firstTime_acceptConnect(fromDenied = false) {
             if (core.getURLParameter("test") == "true") { // Skip if debugging
                 if (firstTimeStatus.afterSignIn) {
                     screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_signIn", "firstTime_homeAddress");
-                    $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
+                    $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", false);
 
                     firstTimeStatus.afterSignIn = false;
                 } else {
@@ -176,7 +176,7 @@ function firstTime_acceptConnect(fromDenied = false) {
 
                 localStorage.setItem("dataAcceptConnect", "true");
             } else {
-                $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_signInButton").prop("disabled", false);
+                $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", false);
 
                 if (!fromDenied) {
                     screens.moveForward("firstTime_signIn", "firstTime_connectError");
@@ -460,6 +460,147 @@ function settings_changeProfilePicture() {
         allowEdit: true,
         correctOrientation: true
     });
+}
+
+function settings_changePassword() {
+    if ($("#settings_changePasswordFirst").val() == $("#settings_changePasswordSecond").val() && $("#settings_changePasswordFirst").val().length >= 6) {
+        $("#settings_changePasswordButton").prop("disabled", true);
+
+        firebase.auth().currentUser.updatePassword($("#settings_changePasswordFirst").val()).then(function() {
+            screens.moveBack("settings_changePassword", "settings_editInfo");
+
+            $("#settings_changePasswordButton").prop("disabled", false);
+
+            setTimeout(function() {
+                $("#settings_changePasswordFirst").val("");
+                $("#settings_changePasswordSecond").val("");
+            }, 500);
+        }).catch(function() {
+            navigator.notification.alert(
+                _("Check your connection to the internet and try again."),
+                function() {},
+                _("Couldn't change password")
+            );
+        });
+    } else if ($("#settings_changePasswordFirst").val() != $("#settings_changePasswordSecond").val()) {
+        navigator.notification.alert(
+            _("Make sure that you've typed the same password in both fields."),
+            function() {},
+            _("Passwords don't match")
+        );
+    } else if ($("#settings_changePasswordFirst").val() == "" || $("#settings_changePasswordSecond").val()) {
+        navigator.notification.alert(
+            _("Please enter your new password into both fields."),
+            function() {},
+            _("Incomplete information")
+        );
+    } else {
+        navigator.notification.alert(
+            _("Your password must be at least 6 characters long."),
+            function() {},
+            _("Password is too short")
+        );
+    }
+}
+
+function settings_deleteAccountRest() {
+    firebase.database().ref("usernames/" + currentUser.username.toLowerCase()).set(null).then(function() {
+        firebase.database().ref("users/" + currentUser.uid).set(null).then(function() {
+            firebase.auth().currentUser.delete().then(function() {
+                navigator.notification.alert(
+                    _("Your account has been successfully deleted. Thank you for using Proxi!"),
+                    function() {},
+                    _("Account deleted")
+                );
+
+                localStorage.removeItem("accountSetupComplete");
+                localStorage.removeItem("dataAcceptConnect");
+                localStorage.removeItem("homeAddressSet");
+                localStorage.removeItem("homeAddressLatitude");
+                localStorage.removeItem("homeAddressLongitude");
+                localStorage.removeItem("knownAboutInfection");
+                
+                screens.switch("firstTime_intro");
+
+                $("#settings_deleteAccountButton").prop("disabled", true);
+            }).catch(function() {
+                navigator.notification.alert(
+                    _("Check your connection to the internet and try again. If the problem persists, please contact our support team."),
+                    function() {},
+                    _("Couldn't delete account")
+                );
+
+                $("#settings_deleteAccountButton").prop("disabled", false);
+
+                tracking.start();
+            });
+        }).catch(function() {
+            navigator.notification.alert(
+                _("Check your connection to the internet and try again. If the problem persists, please contact our support team."),
+                function() {},
+                _("Couldn't delete account")
+            );
+
+            $("#settings_deleteAccountButton").prop("disabled", false);
+
+            tracking.start();
+        });
+    }).catch(function() {
+        navigator.notification.alert(
+            _("Check your connection to the internet and try again. If the problem persists, please contact our support team."),
+            function() {},
+            _("Couldn't delete account")
+        );
+
+        $("#settings_deleteAccountButton").prop("disabled", false);
+
+        tracking.start();
+    });
+}
+
+function settings_deleteAccountFinal() {
+    navigator.notification.confirm(
+        _("Final chance! We can't recover your account if you accidentally delete it."),
+        function(index) {
+            if (index == 1) {
+                $("#settings_deleteAccountButton").prop("disabled", true);
+
+                tracking.stop();
+
+                firebase.database().ref("users/" + currentUser.uid + "/profileImageType").once("value", function(snapshot) {
+                    if (snapshot.val() == "png") {
+                        firebase.storage().ref("users/" + currentUser.uid + "/profile.png").delete().then(function() {
+                            settings_deleteAccountRest();
+                        }).catch(function() {
+                            navigator.notification.alert(
+                                _("Check your connection to the internet and try again. If the problem persists, please contact our support team."),
+                                function() {},
+                                _("Couldn't delete account")
+                            );
+
+                            $("#settings_deleteAccountButton").prop("disabled", false);
+                        });
+                    } else if (snapshot.val() == "jpg") {
+                        firebase.storage().ref("users/" + currentUser.uid + "/profile.jpg").delete().then(function() {
+                            settings_deleteAccountRest();
+                        }).catch(function() {
+                            navigator.notification.alert(
+                                _("Check your connection to the internet and try again. If the problem persists, please contact our support team."),
+                                function() {},
+                                _("Couldn't delete account")
+                            );
+
+                            $("#settings_deleteAccountButton").prop("disabled", false);
+                        });
+                    } else {
+                        settings_deleteAccountRest();
+                    }
+                });
+            }
+        },
+        _("Delete account?"),
+        [_("Delete"), _("Cancel")]
+    );
 }
 
 function settings_reportInfectionFinal() {

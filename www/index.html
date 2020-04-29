@@ -362,14 +362,59 @@
                 </section>
                 <h2 class="optionHeader">@Security</h2>
                 <section class="options">
-                    <button>
+                    <button onclick="screens.moveForward('settings_editInfo', 'settings_changePassword');">
                         <span>@Change password</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
-                    <button>
+                    <button onclick="screens.moveForward('settings_editInfo', 'settings_deleteAccount');">
                         <span>@Delete account</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
                 </section>
+            </div>
+        </main>
+        <main hidden id="settings_changePassword">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_changePassword', 'settings_editInfo');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Change password</span>
+            </nav>
+            <div class="content">
+                <h1>@Choose a new password</h1>
+                <p>
+                    @We suggest using a mix of letters, numbers and symbols to
+                    create your password. That way, it will be harder for others
+                    to guess your password.
+                </p>
+                <input type="password" placeholder="@Enter your new password" id="settings_changePasswordFirst" />
+                <input type="password" placeholder="@Enter it again" id="settings_changePasswordSecond" />
+                <button onclick="settings_changePassword();" class="bottom" id="settings_changePasswordButton">@Change</button>
+            </div>
+        </main>
+        <main hidden id="settings_deleteAccount">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_deleteAccount', 'settings_editInfo');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Delete account</span>
+            </nav>
+            <div class="content">
+                <h1>@Delete your data</h1>
+                <p>
+                    @Deleting your account will mean that all data that is
+                    attributed to you will be deleted. Here is a list of data
+                    that will be kept and deleted:
+                </p>
+                <strong>@Data that will be deleted:</strong>
+                <ul>
+                    <li>@Your username (someone else may register an account with your username in the future)</li>
+                    <li>@Your full name and profile picture</li>
+                    <li>@Your anonymous ID and infection history</li>
+                    <li>@Your levels, points and achievements</li>
+                </ul>
+                <strong>@Data that will not be deleted:</strong>
+                <ul>
+                    <li>@Anonymous data that cannot be traced back to you</li>
+                    <li>@Your home address (stored on device, not on our servers)</li>
+                </ul>
+                <button onclick="settings_deleteAccountFinal();" class="red bottom" id="settings_deleteAccountButton">@Delete account</button>
             </div>
         </main>
         <main hidden id="settings_reportInfection">
