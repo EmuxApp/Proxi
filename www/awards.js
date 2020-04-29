@@ -70,6 +70,15 @@ awards.getLP = function(points) {
     };
 };
 
+awards.win = function(award) {
+    firebase.database().ref("users/" + currentUser.uid + "/awards/achievements/" + award).set({
+        wonTimes: awards.achievements[award].wonTimes + 1,
+        lastWon: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    firebase.database().ref("users/" + currentUser.uid + "/awards/points").set(awards.points + awards.achievements[award].points);
+};
+
 awards.start = function() {
     if (awards.reference != null) {
         awards.reference.off();
@@ -82,6 +91,17 @@ awards.start = function() {
     awards.reference.on("value", function(snapshot) {
         if (snapshot.val() != null) {
             awards.points = snapshot.val().points || 0;
+
+            if (snapshot.val().achievements != null) {
+                for (var i in snapshot.val().achievements) {
+                    if (snapshot.val().achievements[i] != null) {
+                        var achievement = snapshot.val().achievements[i];
+
+                        awards.achievements[i].lastWon = achievement.lastWon;
+                        awards.achievements[i].wonTimes = achievement.wonTimes;
+                    }
+                }
+            }
         }
 
         $(".levelText").text(_("Level {0}", [awards.getLP(awards.points).level]));
@@ -110,7 +130,7 @@ awards.start = function() {
                         $("<icon class='flippable' aria-hidden='true'>").text("arrow_forward_ios")
                     ])
                 );
-
+                
                 if (achievement.wonTimes == 0) {
                     goalsToDo++;
                 } else {
@@ -120,11 +140,17 @@ awards.start = function() {
         }
 
         if (achievementsWon == 0) {
+            $(".achievementsList").html("");
+
             $(".achievementsList").append([
                 $("<h3 class='center'>").text(_("No achievements yet!")),
                 $("<p class='center'>").text(_("Start completing goals to make them show up here."))
             ]);
-        } else {
+        }
+        
+        if (goalsToDo == 0) {
+            $(".goalsList").html("");
+
             $(".goalsList").append([
                 $("<h3 class='center'>").text(_("You've won all of the achievements!")),
                 $("<p class='center'>").text(_("Congratulations! Repeat your achievements again to level up, and keep your eyes peeled for any new achievements here!"))
