@@ -700,6 +700,18 @@ li {
     margin-bottom: 5px;
 }
 
+pre {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--light);
+    color: var(--lightText);
+    font-family: monospace;
+    border-radius: 10px;
+    overflow: auto;
+    white-space: pre-wrap;
+    user-select: text;
+}
+
 .start {
     text-align: start;
 }

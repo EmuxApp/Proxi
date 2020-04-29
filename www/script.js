@@ -622,6 +622,16 @@ function settings_reportInfectionFinal() {
     );
 }
 
+function settings_retrievePersonalData() {
+    $("#settings_dataRetrievalResult").text("");
+
+    screens.moveForward("settings_yourData", "settings_dataRetrieval");
+
+    firebase.database().ref("users/" + currentUser.uid).once("value", function(snapshot) {
+        $("#settings_dataRetrievalResult").text(JSON.stringify(snapshot.val()));
+    });
+}
+
 function settings_homeAddressListProximity(latitude = 0, longitude = 0) {
     $.get("https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent($("#settings_homeAddressInput").val()) + ".json", {
         access_token: mapboxgl.accessToken,

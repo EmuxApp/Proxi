@@ -392,7 +392,7 @@
                     </button>
                 </section>
                 <section class="options">
-                    <button>
+                    <button onclick="screens.moveForward('settings', 'settings_yourData');">
                         <span>@Your data</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
@@ -540,6 +540,59 @@
                     If it is an emergency, please dial 999.
                 </strong></p>
                 <button onclick="settings_reportInfectionFinal();" class="bottom">@Report COVID-19 infection</button>
+            </div>
+        </main>
+        <main hidden id="settings_yourData">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_yourData', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Your data</span>
+            </nav>
+            <div class="content">
+                <h2 class="optionHeader">@Data retrieval</h2>
+                <p class="optionParagraph">
+                    @If you wish to retrieve your data, we're happy to help. We
+                    can give you your personal data, with the exception of
+                    anonymous data that is linked to you, as well as your
+                    profile picture. Your data will be shown in the JSON format.
+                </p>
+                <section class="options">
+                    <button onclick="settings_retrievePersonalData();">
+                        <span>@Retrieve personal data</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <h2 class="optionHeader">@Data deletion</h2>
+                <p class="optionParagraph">
+                    @By deleting your account, data directly associated with it
+                    will be deleted too. You can also edit certain aspects of
+                    your data too.
+                </p>
+                <section class="options">
+                    <button onclick="screens.moveForward('settings_yourData', 'settings_editInfoSensitive');">
+                        <span>@Edit and delete info</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <h2 class="optionHeader">@Your privacy</h2>
+                <p class="optionParagraph">
+                    @To learn more about how we use your data and what control
+                    you have over your data, take a look at our Privacy Policy.
+                </p>
+                <section class="options">
+                    <button>
+                        <span>@Privacy Policy</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+            </div>
+        </main>
+        <main hidden id="settings_dataRetrieval">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_dataRetrieval', 'settings_yourData');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Data retrieval</span>
+            </nav>
+            <div class="content">
+                <pre id="settings_dataRetrievalResult"></pre>
             </div>
         </main>
         <main hidden id="settings_geolocationOptions">
