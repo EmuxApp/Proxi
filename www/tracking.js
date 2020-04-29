@@ -122,6 +122,18 @@ tracking.rescanFamily = function(reset = false) {
     }
 };
 
+tracking.changeAlertingRange = function() {
+    if (localStorage.getItem("alertingRange") == "6" || localStorage.getItem("alertingRange") == null) {
+        localStorage.setItem("alertingRange", "9");
+    } else if (localStorage.getItem("alertingRange") == "9") {
+        localStorage.setItem("alertingRange", "3");
+    } else {
+        localStorage.setItem("alertingRange", "6");
+    }
+
+    $(".alertingRange").text((localStorage.getItem("alertingRange") || "6") + "m");
+}
+
 tracking.start = function() {
     tracking.geolocationWatcher = navigator.geolocation.watchPosition(function(position) {
         tracking.currentLocation.latitude = position.coords.latitude;
@@ -159,7 +171,7 @@ tracking.start = function() {
                 }
             }
 
-            if (nearestDistance != null && nearestDistance <= 8) {
+            if (nearestDistance != null && nearestDistance <= Number(localStorage.getItem("alertingRange") || 6) + 2) {
                 if (!tracking.justAlerted) {
                     if (tracking.alertsOn) {
                         alerts.fire();
@@ -253,6 +265,8 @@ tracking.start = function() {
             }
         }
     });
+
+    $(".alertingRange").text((localStorage.getItem("alertingRange") || "6") + "m");
 };
 
 tracking.stop = function() {

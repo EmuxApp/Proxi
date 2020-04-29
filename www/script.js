@@ -622,6 +622,70 @@ function settings_reportInfectionFinal() {
     );
 }
 
+function settings_homeAddressListProximity(latitude = 0, longitude = 0) {
+    $.get("https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent($("#settings_homeAddressInput").val()) + ".json", {
+        access_token: mapboxgl.accessToken,
+        proximity: longitude + "," + latitude
+    }, function(data) {
+        $("#settings_homeAddressList").html("");
+
+        if (data.features.length > 0) {
+            for (var i = 0; i < data.features.length; i++) {
+                (function(feature) {
+                    $("#settings_homeAddressList").append(
+                        $("<button>").append(
+                            $("<span>").text(feature.place_name)
+                        ).on("click", function() {
+                            localStorage.setItem("homeAddressLatitude", String(feature.center[1]));
+                            localStorage.setItem("homeAddressLongitude", String(feature.center[0]));
+                            localStorage.setItem("homeAddressSet", "true");
+
+                            resetHomeMarker();
+
+                            screens.moveBack("settings_geolocationOptionsEnterAddress", "settings_geolocationOptions");
+                        })
+                    );
+                })(data.features[i]);
+            }
+        } else {
+            $("#settings_homeAddressList").append([
+                $("<h2>").text(_("No results found")),
+                $("<p>").text(_("Check the address that you typed in."))
+            ]);
+        }
+    });
+}
+
+function settings_homeAddressList() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        settings_homeAddressListProximity(position.coords.latitude, position.coords.longitude);
+    }, function() {
+        settings_homeAddressListProximity();
+    }, {timeout: 3000});
+}
+
+function settings_homeAddressSetCurrent() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        localStorage.setItem("homeAddressLatitude", String(position.coords.latitude));
+        localStorage.setItem("homeAddressLongitude", String(position.coords.longitude));
+        localStorage.setItem("homeAddressSet", "true");
+
+        resetHomeMarker();
+
+        navigator.notification.alert(
+            _("Your home address has been successfully determined from your current location."),
+            function() {},
+            _("Home address set")
+        );
+    }, function() {
+        navigator.notification.alert(
+            _("Please enter your address instead."),
+            function() {},
+            _("We couldn't get your current location")
+        );
+    }, {timeout: 3000, enableHighAccuracy: true});
+}
+
 function signOut() {
     navigator.notification.confirm(
         _("If you sign out, your home address will no longer be kept."),

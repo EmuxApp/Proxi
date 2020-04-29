@@ -290,16 +290,18 @@
                     <button onclick="signOut();" class="green">@Sign out</button>
                 </header>
                 <section class="options">
+                    <button onclick="screens.moveForward('settings', 'settings_reportInfection');">
+                        <span>@Report COVID-19 infection</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <section class="options">
                     <button>
                         <span>@Your data</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
-                    <button>
+                    <button onclick="screens.moveForward('settings', 'settings_geolocationOptions');">
                         <span>@Geolocation options</span>
-                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    </button>
-                    <button onclick="screens.moveForward('settings', 'settings_reportInfection');">
-                        <span>@Report COVID-19 infection</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
                 </section>
@@ -442,6 +444,55 @@
                     If it is an emergency, please dial 999.
                 </strong></p>
                 <button onclick="settings_reportInfectionFinal();" class="bottom">@Report COVID-19 infection</button>
+            </div>
+        </main>
+        <main hidden id="settings_geolocationOptions">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_geolocationOptions', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Geolocation</span>
+            </nav>
+            <div class="content">
+                <h2 class="optionHeader">@Home address</h2>
+                <p class="optionParagraph">
+                    @We won't track you when you're within 20m of your home
+                    address. If you're already at home, it's quicker and easier
+                    to set your home address by using your device's GPS sensor ─
+                    that way your home address will be set with more accuracy.
+                </p>
+                <section class="options">
+                    <button onclick="settings_homeAddressSetCurrent();">
+                        <span>@Set home address to current location</span>
+                    </button>
+                    <button onclick="screens.moveForward('settings_geolocationOptions', 'settings_geolocationOptionsEnterAddress');">
+                        <span>@Enter home address manually</span>
+                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
+                    </button>
+                </section>
+                <h2 class="optionHeader">@Alerting range</h2>
+                <p class="optionParagraph">
+                    @You can change how far you must be from others before Proxi
+                    alerts you. It is recommended for you to set the range to
+                    6m so that you are alerted at the right time, but you can
+                    change the range depending on the accuracy of your device's
+                    GPS sensor.
+                </p>
+                <section class="options">
+                    <button onclick="tracking.changeAlertingRange();">
+                        <span>@Alerting range</span>
+                        <icon class="flippable" aria-hidden="true">unfold_more</icon>
+                        <span class="alertingRange">6m</span>
+                    </button>
+                </section>
+            </div>
+        </main>
+        <main hidden id="settings_geolocationOptionsEnterAddress">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_geolocationOptionsEnterAddress', 'settings_geolocationOptions');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Home address</span>
+            </nav>
+            <div class="content">
+                <input placeholder="@What's your address?" onkeyup="settings_homeAddressList();" id="settings_homeAddressInput"></input>
+                <section class="options" id="settings_homeAddressList"></div>
             </div>
         </main>
         <main hidden id="infectionAlert">

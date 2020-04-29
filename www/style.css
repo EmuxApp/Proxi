@@ -504,6 +504,11 @@ h2.optionHeader {
     font-weight: normal;
 }
 
+p.optionParagraph {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 a {
     color: var(--dark);
     transition: color 0.5s;
