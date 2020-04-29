@@ -402,15 +402,15 @@
                     </button>
                 </section>
                 <section class="options">
-                    <button>
+                    <button onclick="screens.moveForward('settings', 'settings_aboutProxi');">
                         <span>@About Proxi</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
-                    <button>
+                    <button onclick="screens.moveForward('settings', 'settings_termsOfService');">
                         <span>@Terms of Service</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
-                    <button>
+                    <button onclick="screens.moveForward('settings', 'settings_privacyPolicy');">
                         <span>@Privacy Policy</span>
                         <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     </button>
@@ -643,6 +643,37 @@
                 <input placeholder="@What's your address?" onkeyup="settings_homeAddressList();" id="settings_homeAddressInput"></input>
                 <section class="options" id="settings_homeAddressList"></div>
             </div>
+        </main>
+        <main hidden id="settings_aboutProxi">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_aboutProxi', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@About Proxi</span>
+            </nav>
+            <div class="content">
+                <img src="media/proxi.svg" alt="@Proxi logo" class="headerGraphic" />
+                <div id="about">
+                    <h1>@Proxi</h1>
+                    <p>@Keep your distance</p>
+                </div>
+                <p>@Designed and developed by Emux Technologies</p>
+                <p>@Copyright &copy; Emux Technologies. All Rights Reserved.</p>
+                <p aria-label="@Made with love in Norwich, United Kingdom">@Made with &#x2764; in Norwich, United Kingdom</p>
+                <p>Visit our site at <a href="javascript:window.open('https://emux.app');">emux.app</a></p>
+            </div>
+        </main>
+        <main hidden id="settings_termsOfService">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_termsOfService', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Terms of Service</span>
+            </nav>
+            <iframe src="https://emux.app/embedded/proxiTerms_en_GB.html" class="content"></iframe>
+        </main>
+        <main hidden id="settings_privacyPolicy">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_privacyPolicy', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Privacy Policy</span>
+            </nav>
+            <iframe src="https://emux.app/embedded/proxiPrivacy_en_GB.html" class="content"></iframe>
         </main>
         <main hidden id="infectionAlert">
             <nav class="red">

@@ -714,6 +714,15 @@ pre {
     user-select: text;
 }
 
+iframe.content {
+    position: absolute;
+    top: 60px;
+    width: 100vw;
+    height: calc(100vh - 40px - 50px);
+    margin: -20px;
+    border: none;
+}
+
 .start {
     text-align: start;
 }
@@ -805,6 +814,21 @@ pre {
 #loader p {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+#about {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#about h1 {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#about p {
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 @media (max-height: 550px) {
