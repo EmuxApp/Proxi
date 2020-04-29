@@ -180,7 +180,7 @@ tracking.start = function() {
                     tracking.alertedSince = new Date().getTime();
                 } else {
                     if (new Date().getTime() - tracking.alertedSince <= SPREAD_TIME) {
-                        if (localStorage.getItem("inContact") == "" || localStorage.getItem("inContact") == null) {
+                        if (localStorage.getItem("inContact") == "" || localStorage.getItem("inContact") == null || localStorage.getItem("inContact").split(",").indexOfOf(nearestAid) < 0) {
                             localStorage.setItem("inContact", nearestAid);
                         } else {
                             localStorage.setItem("inContact", localStorage.getItem("inContact") + "," + nearestAid);

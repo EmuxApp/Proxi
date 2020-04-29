@@ -30,6 +30,7 @@
         <script src="screens.js"></script>
         <script src="map.js"></script>
         <script src="tracking.js"></script>
+        <script src="awards.js"></script>
         <script src="alerts.js"></script>
         <script src="script.js"></script>
         <script src="lang/en_GB.js"></script>
@@ -336,40 +337,17 @@
             <div class="content">
                 <header class="awards">
                     <a href="javascript:screens.moveForward('awards', 'settings_editInfoSensitive');" class="implied"><span class="username"></span> <icon aria-label="@Edit">edit</icon></a>
-                    <img src="media/levels/1.svg" class="level" />
+                    <img src="media/levels/1.svg" class="level levelMedal" />
                 </header>
                 <div class="center">
-                    <h1 class="level">@Level {0}|1</h1>
-                    <progress min="0" max="100" value="65" class="red"></progress>
-                    <span class="red">@{0} points|65</span>
+                    <h1 class="level levelText">@Level {0}|1</h1>
+                    <progress min="0" max="100" value="0" class="red pointsProgress"></progress>
+                    <span class="red pointsText">@{0} points|0</span>
                 </div>
                 <h2 class="optionHeader">Achievements</h2>
-                <section class="options">
-                    <button class="achievement">
-                        <icon aria-hidden="true" class="thumbnail">store</icon>
-                        <span class="points" aria-label="@{0} points|10">10</span>
-                        <strong>Quickest Shop Ever!</strong>
-                        <span>Go to the shop and come back home in 10 minutes.</span>
-                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    </button>
-                    <button class="achievement">
-                        <icon aria-hidden="true" class="thumbnail">nature_local</icon>
-                        <span class="points" aria-label="@{0} points|10">10</span>
-                        <strong>A Solitary Walk</strong>
-                        <span>Keep a 10m distance from others when at the park.</span>
-                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    </button>
-                </section>
+                <section class="options achievementsList"></section>
                 <h2 class="optionHeader">Next goals</h2>
-                <section class="options">
-                    <button class="achievement">
-                        <icon aria-hidden="true" class="thumbnail">house</icon>
-                        <span class="points" aria-label="@{0} points|10">10</span>
-                        <strong>Staying In</strong>
-                        <span>Stay indoors for 3 days in a row.</span>
-                        <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    </button>
-                </section>
+                <section class="options goalsList"></section>
             </div>
         </main>
         <main hidden id="settings">

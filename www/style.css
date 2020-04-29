@@ -244,7 +244,7 @@ header.settings p {
 }
 
 header.settings button {
-    width: calc(50% - 4px);
+    width: calc(50% - 5px);
     margin: 10px;
     margin-left: 0;
     margin-right: 0;

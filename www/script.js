@@ -224,6 +224,7 @@ function firstTime_homeAddressListProximity(latitude = 0, longitude = 0) {
                             screens.moveBack("firstTime_homeAddress", "home");
 
                             tracking.start();
+                            awards.start();
                             settings_currentUserSettings();
                             family_currentMembersList();
                         })
@@ -258,6 +259,7 @@ function firstTime_homeAddressSetCurrent() {
         screens.moveBack("firstTime_homeAddress", "home");
 
         tracking.start();
+        awards.start();
         settings_currentUserSettings();
         family_currentMembersList();
     }, function() {
@@ -533,6 +535,7 @@ function settings_deleteAccountRest() {
                 $("#settings_deleteAccountButton").prop("disabled", false);
 
                 tracking.start();
+                awards.start();
             });
         }).catch(function() {
             navigator.notification.alert(
@@ -544,6 +547,7 @@ function settings_deleteAccountRest() {
             $("#settings_deleteAccountButton").prop("disabled", false);
 
             tracking.start();
+            awards.start();
         });
     }).catch(function() {
         navigator.notification.alert(
@@ -555,6 +559,7 @@ function settings_deleteAccountRest() {
         $("#settings_deleteAccountButton").prop("disabled", false);
 
         tracking.start();
+        awards.start();
     });
 }
 
@@ -885,6 +890,7 @@ document.addEventListener("deviceready", function() {
                 screens.switch("home");
 
                 tracking.start();
+                awards.start();
                 settings_currentUserSettings();
                 family_currentMembersList();
             }
