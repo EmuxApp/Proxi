@@ -37,7 +37,7 @@ $(function() {
 
     map = new mapboxgl.Map({
         container: "mapContent",
-        style: "mapbox://styles/james-emux/ck9bh227900zb1inw6yobvwbc"
+        style: window.matchMedia("(prefers-color-scheme: dark)").matches ? "mapbox://styles/james-emux/ck9ld5dmq00101iqftm9vmvw7" : "mapbox://styles/james-emux/ck9bh227900zb1inw6yobvwbc"
     });
 
     mapGeolocation = new mapboxgl.GeolocateControl({

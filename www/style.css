@@ -814,3 +814,56 @@ pre {
         padding-bottom: 20px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: black;
+        --text: white;
+        --light: #17110d;
+        --lightText: white;
+        --dark: #b7c4e0;
+        --darkText: black;
+        --red: #a84267;
+        --redText: white;
+        --green: #0f9a7c;
+        --greenText: white;
+        --blue: #1d7eb9;
+        --blueText: white;
+    }
+
+    nav button:active {
+        color: rgba(0, 0, 0, 0.75);
+    }
+
+    footer a.selected {
+        background-color: rgba(255, 255, 255, 0.075);
+    }
+    
+    footer a.selected:active {
+        color: var(--text);
+    }
+    
+    footer a:not(.selected) {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    footer a:not(.selected):active {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    section.options button:first-child:not(:last-child) {
+        border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    section.options button:not(:first-child):not(:last-child) {
+        border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+    }
+
+    section.options button:not(.achievement) span:nth-of-type(2) {
+        color: rgba(255, 255, 255, 0.15);
+    }
+
+    .mapboxgl-ctrl {
+        background-color: black;
+    }
+}
