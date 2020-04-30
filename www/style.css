@@ -145,6 +145,15 @@ main.fillScreen {
     z-index: 1;
 }
 
+main.fillScreen div.content {
+    height: calc(100vh - 40px);
+}
+
+
+main.fillScreen iframe.content {
+    height: calc(100vh - 40px);
+}
+
 header {
     text-align: center;
 }

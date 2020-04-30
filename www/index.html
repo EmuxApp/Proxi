@@ -111,11 +111,26 @@
                 </li>
             </ul>
             <p>
-                @By using Proxi, you accept our <a href="#">Terms of Service</a>
-                and <a href="#">Privacy Policy</a>.
+                @By using Proxi, you accept our
+                <a href="javascript:screens.moveForward('firstTime_dataUsage', 'firstTime_termsOfService');">Terms of Service</a>
+                and
+                <a href="javascript:screens.moveForward('firstTime_dataUsage', 'firstTime_privacyPolicy');">Privacy Policy</a>.
             </p>
-            <!-- TODO: Add screen that shows Terms of Service, as well as another one for Privacy Policy -->
             <button onclick="firstTime_accept();" class="red fillWidth" id="firstTime_accept">@Accept</button>
+        </main>
+        <main hidden class="fillScreen" id="firstTime_termsOfService">
+            <nav>
+                <button onclick="screens.moveBack('firstTime_termsOfService', 'firstTime_dataUsage');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Terms of Service</span>
+            </nav>
+            <iframe src="https://emux.app/embedded/proxiTerms_en_GB.html" class="content"></iframe>
+        </main>
+        <main hidden class="fillScreen" id="firstTime_privacyPolicy">
+            <nav>
+                <button onclick="screens.moveBack('firstTime_privacyPolicy', 'firstTime_dataUsage');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Privacy Policy</span>
+            </nav>
+            <iframe src="https://emux.app/embedded/proxiPrivacy_en_GB.html" class="content"></iframe>
         </main>
         <main hidden class="fillScreen center" id="firstTime_homeAddress">
             <img src="media/graphics/home.svg" alt="@Graphic of a house" class="headerGraphic" />
