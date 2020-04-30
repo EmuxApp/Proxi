@@ -192,6 +192,10 @@ tracking.start = function() {
             } else {
                 tracking.justAlerted = false;
             }
+
+            if (nearestDistance != null && nearestDistance < 10) {
+                firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").set(true);
+            }
         });
 
         if (tracking.currentLocation.homeDistance > 20) {
@@ -233,6 +237,14 @@ tracking.start = function() {
                         }
                     }
                 });
+
+                // Logic for controlling awards
+
+                firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").set(firebase.database.ServerValue.TIMESTAMP);
+
+                awards.judge(new Date().getTime() - Number(localStorage.getItem("outSince")) >= 5 * 60 * 1000);
+
+                // Reset local storage
 
                 localStorage.removeItem("trackingAid");
                 localStorage.removeItem("outSince");

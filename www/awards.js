@@ -7,6 +7,9 @@
     Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 */
 
+const AWARD_COOLDOWN_PERIOD = 12 * 60 * 60 * 1000; // 12 hours
+const AWARD_FULL_DAY = 24 * 60 * 60 * 1000; // 1 day
+
 var awards = {
     achievements: [
         {
@@ -77,6 +80,50 @@ awards.win = function(award) {
     });
 
     firebase.database().ref("users/" + currentUser.uid + "/awards/points").set(awards.points + awards.achievements[award].points);
+};
+
+awards.judge = function(hasBeenOutside = false) {
+    if (hasBeenOutside) {
+        firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").once("value", function(snapshot) {
+            if (!snapshot.val() && hasBeenOutside) {
+                // A Solitary Walk
+                if (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_COOLDOWN_PERIOD) {
+                    awards.win(0);
+                }
+
+                // Going Alone
+                if (awards.achievements[0].wonTimes != 0 && awards.achievements[0].wonTimes != null && awards.achievements[0].wonTimes % 5 == 0) {
+                    awards.win(1);
+                }
+            }
+        });
+    }
+
+    firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").once("value", function(snapshot) {
+        // Staying In
+        if (
+            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY) &&
+            snapshot.val() >= AWARD_FULL_DAY
+        ) {
+            awards.win(2);
+        }
+
+        // Keeping Cozy
+        if (
+            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY * 3) &&
+            snapshot.val() >= AWARD_FULL_DAY * 3
+        ) {
+            awards.win(3);
+        }
+
+        // Introvert
+        if (
+            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY * 5) &&
+            snapshot.val() >= AWARD_FULL_DAY * 5
+        ) {
+            awards.win(4);
+        }
+    });
 };
 
 awards.start = function() {

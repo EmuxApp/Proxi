@@ -816,6 +816,12 @@ function family_newMemberList() {
         
                                                 currentFamily.push(uid);
                                                 tracking.rescanFamily();
+
+                                                firebase.database().ref("users/" + currentUser.uid + "/awards/5/wonTimes").once("value", function(snapshot) {
+                                                    if (snapshot.val() == null || snapshot.val() == 0) {
+                                                        awards.win(5);
+                                                    }
+                                                });
                                             } else {
                                                 navigator.notification.alert(
                                                     _("This family contact has already been added to your family. You can remove them under the 'Current members' section."),
