@@ -175,10 +175,9 @@
                     <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
                     <span class="familyContactsCount">0</span>
                 </button>
-                <button>
+                <button onclick="screens.moveForward('home', 'home_dataSharing');">
                     <span>@Data sharing</span>
                     <icon class="flippable" aria-hidden="true">arrow_forward_ios</icon>
-                    <span>0</span>
                 </button>
             </section>
         </main>
@@ -331,6 +330,27 @@
                     <input placeholder="@Enter a username" onkeyup="family_newMemberList();" id="family_newMemberInput"></input>
                 </section>
                 <section class="options" id="family_newMemberList"></section>
+            </div>
+        </main>
+        <main hidden id="home_dataSharing">
+            <nav>
+                <button onclick="screens.moveBack('home_dataSharing', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Data sharing</span>
+            </nav>
+            <div class="content">
+                <img src="media/graphics/stats.svg" alt="@Graphic of person looking at a pie chart" class="headerGraphic" />
+                <h1 class="optionHeader">@Data sharing is coming soon</h1>
+                <p>
+                    @As data becomes pivotal to the success in fighting
+                    COVID-19, we're looking to partner with organisations who
+                    require current and historical data to carry out predictions
+                    and research around contact tracing.
+                </p>
+                <p>
+                    @When we've partnered with suitable organisations, we'll
+                    allow you to choose if they are permitted to process your
+                    data here.
+                </p>
             </div>
         </main>
         <main hidden id="map">
