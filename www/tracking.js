@@ -193,7 +193,7 @@ tracking.start = function() {
                 tracking.justAlerted = false;
             }
 
-            if (nearestDistance != null && nearestDistance < 10) {
+            if (nearestDistance != null && nearestDistance < 10 && localStorage.getItem("trackingAid") != null) {
                 firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").set(true);
             }
         });
@@ -209,6 +209,8 @@ tracking.start = function() {
                 });
 
                 firebase.database().ref("users/" + currentUser.uid + "/outSince").set(new Date().getTime());
+
+                firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").set(null);
             } else {
                 tracking.sendLocation();
             }
@@ -242,7 +244,7 @@ tracking.start = function() {
 
                 firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").set(firebase.database.ServerValue.TIMESTAMP);
 
-                awards.judge(new Date().getTime() - Number(localStorage.getItem("outSince")) >= 5 * 60 * 1000);
+                awards.judge(new Date().getTime() - Number(localStorage.getItem("outSince")) >= 5 * 60 * 1000 && localStorage.getItem("outSince") != null);
 
                 // Reset local storage
 

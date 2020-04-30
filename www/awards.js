@@ -63,7 +63,8 @@ var awards = {
         }
     ],
     points: 0,
-    reference: null
+    reference: null,
+    tick: null
 };
 
 awards.getLP = function(points) {
@@ -85,7 +86,7 @@ awards.win = function(award) {
 awards.judge = function(hasBeenOutside = false) {
     if (hasBeenOutside) {
         firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").once("value", function(snapshot) {
-            if (!snapshot.val() && hasBeenOutside) {
+            if (snapshot.val() != true) {
                 // A Solitary Walk
                 if (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_COOLDOWN_PERIOD) {
                     awards.win(0);
@@ -96,30 +97,32 @@ awards.judge = function(hasBeenOutside = false) {
                     awards.win(1);
                 }
             }
+
+            firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").set(null);
         });
     }
 
     firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").once("value", function(snapshot) {
         // Staying In
         if (
-            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY) &&
-            snapshot.val() >= AWARD_FULL_DAY
+            (awards.achievements[2].lastWon == null || new Date().getTime() - awards.achievements[2].lastWon >= AWARD_FULL_DAY) &&
+            new Date().getTime() - snapshot.val() >= AWARD_FULL_DAY
         ) {
             awards.win(2);
         }
 
         // Keeping Cozy
         if (
-            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY * 3) &&
-            snapshot.val() >= AWARD_FULL_DAY * 3
+            (awards.achievements[3].lastWon == null || new Date().getTime() - awards.achievements[3].lastWon >= AWARD_FULL_DAY * 3) &&
+            new Date().getTime() - snapshot.val() >= AWARD_FULL_DAY * 3
         ) {
             awards.win(3);
         }
 
         // Introvert
         if (
-            (awards.achievements[0].lastWon == null || new Date().getTime() - awards.achievements[0].lastWon >= AWARD_FULL_DAY * 5) &&
-            snapshot.val() >= AWARD_FULL_DAY * 5
+            (awards.achievements[4].lastWon == null || new Date().getTime() - awards.achievements[4].lastWon >= AWARD_FULL_DAY * 5) &&
+            new Date().getTime() - snapshot.val() >= AWARD_FULL_DAY * 5
         ) {
             awards.win(4);
         }
@@ -140,12 +143,14 @@ awards.start = function() {
             awards.points = snapshot.val().points || 0;
 
             if (snapshot.val().achievements != null) {
-                for (var i in snapshot.val().achievements) {
-                    if (snapshot.val().achievements[i] != null) {
-                        var achievement = snapshot.val().achievements[i];
+                for (var i = 0; i < Object.keys(snapshot.val().achievements).length; i++) {
+                    var key = Object.keys(snapshot.val().achievements)[i];
 
-                        awards.achievements[i].lastWon = achievement.lastWon;
-                        awards.achievements[i].wonTimes = achievement.wonTimes;
+                    if (snapshot.val().achievements[key] != null) {
+                        var achievement = snapshot.val().achievements[key];
+
+                        awards.achievements[key].lastWon = achievement.lastWon;
+                        awards.achievements[key].wonTimes = achievement.wonTimes;
                     }
                 }
             }
@@ -204,6 +209,12 @@ awards.start = function() {
             ]);
         }
     });
+
+    clearInterval(awards.tick);
+
+    awards.tick = setInterval(function() {
+        awards.judge();
+    }, 60 * 1000);
 };
 
 awards.stop = function() {

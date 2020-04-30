@@ -221,6 +221,8 @@ function firstTime_homeAddressListProximity(latitude = 0, longitude = 0) {
 
                             screens.moveBack("firstTime_homeAddress", "home");
 
+                            firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").set(firebase.database.ServerValue.TIMESTAMP);
+
                             tracking.start();
                             awards.start();
                             settings_currentUserSettings();
@@ -255,6 +257,8 @@ function firstTime_homeAddressSetCurrent() {
         resetHomeMarker();
 
         screens.moveBack("firstTime_homeAddress", "home");
+
+        firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/lastOutside").set(firebase.database.ServerValue.TIMESTAMP);
 
         tracking.start();
         awards.start();
@@ -817,7 +821,7 @@ function family_newMemberList() {
                                                 currentFamily.push(uid);
                                                 tracking.rescanFamily();
 
-                                                firebase.database().ref("users/" + currentUser.uid + "/awards/5/wonTimes").once("value", function(snapshot) {
+                                                firebase.database().ref("users/" + currentUser.uid + "/awards/achievements/5/wonTimes").once("value", function(snapshot) {
                                                     if (snapshot.val() == null || snapshot.val() == 0) {
                                                         awards.win(5);
                                                     }
