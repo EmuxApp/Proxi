@@ -63,9 +63,9 @@ var lang = {
  
     format: function(data, code, options = {}) {
         if (data instanceof Number) {
-            return data.toLocaleString(code, options);
+            return data.toLocaleString(code.replace(/_/g, "-"), options);
         } else if (data instanceof Date) {
-            return data.toLocaleDateString(code, options);
+            return data.toLocaleDateString(code.replace(/_/g, "-"), options);
         } else {
             return data;
         }
@@ -87,9 +87,9 @@ var lang = {
  
                     for (var argument in arguments) {
                         if (useLocaleFormats) {
-                            rule = rule.replace(new RegExp("\\{" + argument + "\\}", "g"), "`" + String(lang.format(arguments, lang.language)).replace(/`/g, "\\`") + "`");
+                            rule = rule.replace(new RegExp("\\{" + argument + "\\}", "g"), "`" + String(lang.format(arguments[argument], lang.language)).replace(/`/g, "\\`") + "`");
                         } else {
-                            rule = rule.replace(new RegExp("\\{" + argument + "\\}", "g"), "`" + String(arguments).replace(/`/g, "\\`") + "`");
+                            rule = rule.replace(new RegExp("\\{" + argument + "\\}", "g"), "`" + String(arguments[argument]).replace(/`/g, "\\`") + "`");
                         }
  
                         if (eval(rule)) {
@@ -183,8 +183,8 @@ if (core.getURLParameter("lang") != null) {
     }
 }
   
-if ((lang.language == "en-AU" || lang.language == "en-US") && lang.locales[lang.language] == undefined) {
-    lang.language = "en-GB";
+if ((lang.language == "en_AU" || lang.language == "en_US") && lang.locales[lang.language] == undefined) {
+    lang.language = "en_GB";
 }
  
 $("html, body").css("display", "none");

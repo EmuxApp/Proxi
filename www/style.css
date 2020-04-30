@@ -361,6 +361,31 @@ div.signature small {
     font-size: 12px;
 }
 
+div.achievementDetails {
+    text-align: center;
+}
+
+div.achievementDetails icon.thumbnail {
+    display: block;
+    width: 75px;
+    height: 75px;
+    margin: auto;
+    padding: 10px;
+    background-color: var(--red);
+    color: var(--redText);
+    font-size: 50px;
+    border-radius: 37.5px;
+}
+
+div.achievementDetails span.points {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    color: var(--red);
+    font-size: 20px;
+    text-align: center;
+}
+
 section.options {
     margin-top: 20px;
     margin-bottom: 20px;

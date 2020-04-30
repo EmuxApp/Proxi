@@ -22,6 +22,10 @@ lang.load("en-GB", {
             "{0} == `1`": "1 point",
             "{0} != `1`": "{0} points"
         },
-        "@If symptoms persist after 7 days, please contact {0} online. If it is an emergency, please dial {1}.": "@If symptoms persist after 7 days, please contact {0} online. If it is an emergency, please dial {1}."
+        "Won {0} times, last won on {1}": {
+            "{0} == `1`": "Won once, last won on {1}",
+            "{0} == `2`": "Won twice, last won on {1}",
+            "{0} != `1` && {0} != `2`": "Won {0} times, last won on {1}"
+        }
     }
 });

@@ -367,6 +367,22 @@
                 <section class="options leaderboardList"></section>
             </div>
         </main>
+        <main hidden id="awards_achievement">
+            <nav class="red">
+                <button onclick="screens.moveBack('awards_achievement', 'awards');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@View achievement</span>
+            </nav>
+            <div class="content">
+                <div class="achievementDetails">
+                    <icon class="thumbnail"></icon>
+                    <span class="points">@{0} points|0</span>
+                </div>
+                <h1 class="achievementName center"></h1>
+                <p class="achievementDescription center"></p>
+                <p class="achievementExtra"></p>
+                <p class="center"><small class="achievementProgress"></small></p>
+            </div>
+        </main>
         <main hidden id="settings">
             <nav class="green">
                 <button onclick="screens.moveBack('settings', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>

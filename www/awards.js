@@ -15,6 +15,7 @@ var awards = {
         {
             name: _("A Solitary Walk"),
             description: _("Keep a 10m distance from others when outside."),
+            extra: _("To win this award, you must go outside from your house and keep a 10m distance from others for 5 minutes. It's a challenge, but it'll help keep everyone safe!"),
             points: 10,
             icon: "directions_walk",
             wonTimes: 0
@@ -22,13 +23,15 @@ var awards = {
         {
             name: _("Going Alone"),
             description: _("Keep 10m from others on 5 different days."),
+            extra: _("This is similar to the <strong>A Solitary Walk</strong> award, but you get 15 extra points if you win that award 5 times on 5 different days!"),
             points: 15,
-            icon: "nature_local",
+            icon: "nature",
             wonTimes: 0
         },
         {
             name: _("Staying In"),
             description: _("Stay at home for a full day."),
+            extra: _("Take a rest for 24 hours ─ relax! Think about what you could do in that time: reading, playing games, or even baking some delicious food!"),
             points: 10,
             icon: "house",
             wonTimes: 0
@@ -36,6 +39,7 @@ var awards = {
         {
             name: _("Keeping Cozy"),
             description: _("Stay indoors for 3 days in a row."),
+            extra: _("If you're an introvert, this'll likely be easy ─ stay at home for a whole 36 hours. Make sure that you have enough to eat beforehand!"),
             points: 10,
             icon: "fireplace",
             wonTimes: 0
@@ -43,6 +47,7 @@ var awards = {
         {
             name: _("Introvert"),
             description: _("Stay in your home for 5 whole days."),
+            extra: _("Some may call you an introvert for staying at home for a whole 120 hours, but you can do <em>loads</em> of things in that time ─ if you're bored and haven't spoken to anyone lately, why don't you give a friend or family member a call!"),
             points: 10,
             icon: "king_bed",
             wonTimes: 0
@@ -50,6 +55,7 @@ var awards = {
         {
             name: _("Part Of a Family"),
             description: _("Add one family member to your Proxi account."),
+            extra: _("You get a whole 50 points if you add one person to the <strong>Family contacts</strong> section of Proxi! If they add you back as their first person, they can have 50 points too."),
             points: 50,
             icon: "people",
             wonTimes: 0
@@ -57,6 +63,7 @@ var awards = {
         {
             name: _("Spread the Word"),
             description: _("Share Proxi on social media. Get 5 points per like!"),
+            extra: _("Help promote Proxi! Post a positive message about Proxi to your favourite social media platform. If you can, include a link to <a href='javascript:window.open(\"https://emux.app\");'>emux.app</a> to help others find Proxi more easily! In order to claim your 5 points per like, you will need to fill in the quick form at <a href='javascript:window.open(\"https://emux.app/proxishare\");'>emux.app/proxishare</a> once your post has become sufficiently popular so that we can verify that you have got loads of likes."),
             points: 5,
             icon: "share",
             wonTimes: 0
@@ -171,16 +178,40 @@ awards.start = function() {
         for (var i = 0; i < awards.achievements.length; i++) {
             (function(achievement) {
                 $(achievement.wonTimes == 0 ? ".goalsList" : ".achievementsList").append(
-                    $("<button class='achievement'>").append([
-                        $("<icon class='thumbnail' aria-hidden='true'>").text(achievement.icon),
-                        $("<span class='points'>")
-                            .attr("aria-label", _("{0} points", achievement.points))
-                            .text(achievement.points)
-                        ,
-                        $("<strong>").text(achievement.name),
-                        $("<span>").text(achievement.description),
-                        $("<icon class='flippable' aria-hidden='true'>").text("arrow_forward_ios")
-                    ])
+                    $("<button class='achievement'>")
+                        .append([
+                            $("<icon class='thumbnail' aria-hidden='true'>").text(achievement.icon),
+                            $("<span class='points'>")
+                                .attr("aria-label", _("{0} points", achievement.points))
+                                .text(achievement.points)
+                            ,
+                            $("<strong>").text(achievement.name),
+                            $("<span>").text(achievement.description),
+                            $("<icon class='flippable' aria-hidden='true'>").text("arrow_forward_ios")
+                        ])
+                        .on("click", function() {
+                            $(".achievementDetails .thumbnail").text(achievement.icon);
+                            $(".achievementDetails .points").text(_("{0} points", [achievement.points]));
+
+                            $(".achievementName").text(achievement.name);
+                            $(".achievementDescription").text(achievement.description);
+                            $(".achievementExtra").html(achievement.extra);
+
+                            if (achievement.wonTimes != null && achievement.wonTimes > 0) {
+                                var dateString = lang.format(new Date(achievement.lastWon), lang.language, {
+                                    weekday: "long",
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric"
+                                });
+
+                                $(".achievementProgress").text(_("Won {0} times, last won on {1}", [achievement.wonTimes, dateString]));
+                            } else {
+                                $(".achievementProgress").text(_("Not won by you yet"));
+                            }
+
+                            screens.moveForward("awards", "awards_achievement");
+                        })
                 );
                 
                 if (achievement.wonTimes == 0) {
