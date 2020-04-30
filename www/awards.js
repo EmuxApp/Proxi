@@ -166,3 +166,38 @@ awards.stop = function() {
         awards.reference = null;
     }
 };
+
+$(function() {
+    firebase.database().ref("users").orderByChild("awards/points").limitToLast(20).on("value", function(snapshot) {
+        var topUsers = [];
+
+        snapshot.forEach(function(childSnapshot) {
+            if (childSnapshot.val().awards != null && childSnapshot.val().awards.points != null) {
+                topUsers.unshift({username: childSnapshot.val().username, points: childSnapshot.val().awards.points});
+            }
+        });
+
+        $(".leaderboardList").html("");
+
+        if (topUsers.length > 0) {
+            var lastPoints = null;
+
+            for (var i = 0; i < topUsers.length; i++) {
+                $(".leaderboardList").append(
+                    $("<button class='leaderboardPosition'>").append([
+                        $("<strong>").text(topUsers[i].points == lastPoints ? "=" : i + 1),
+                        $("<span>").text(topUsers[i].username),
+                        $("<span>").text(topUsers[i].points)
+                    ])
+                );
+
+                lastPoints = topUsers[i].points;
+            }
+        } else {
+            $(".leaderboardList").append([
+                $("<h3 class='center'>").text(_("Couldn't get the leaderboard")),
+                $("<p class='center'>").text(_("Check your connection to the internet, or try again later."))
+            ]);
+        }
+    });
+});

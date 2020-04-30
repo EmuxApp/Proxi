@@ -493,6 +493,32 @@ section.options button.achievement icon:not(.thumbnail) {
     right: unset;
 }
 
+section.options button.leaderboardPosition strong {
+    display: inline-block;
+    width: 25px;
+    margin-right: 10px;
+    text-align: end;
+}
+
+[dir="rtl"] section.options button.leaderboardPosition strong {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+section.options button.leaderboardPosition span:first-of-type {
+    display: inline-block;
+    width: calc(55vw - 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+section.options button.leaderboardPosition span:last-of-type {
+    width: 15vw;
+    color: var(--red);
+}
+
 h1.level {
     font-size: 24px;
     font-weight: normal;
