@@ -162,8 +162,6 @@ function firstTime_acceptConnect(fromDenied = false) {
         $(fromDenied ? "#firstTime_connectErrorButton" : "#firstTime_validateAccount").prop("disabled", false);
     }, function(error) {
         if (error.PERMISSION_DENIED) {
-            // TODO: Show a screen that tells the user to change permission settings manually
-
             if (core.getURLParameter("test") == "true") { // Skip if debugging
                 if (firstTimeStatus.afterSignIn) {
                     screens.moveForward(fromDenied ? "firstTime_connectError" : "firstTime_signIn", "firstTime_homeAddress");
