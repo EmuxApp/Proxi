@@ -68,7 +68,8 @@ $(function() {
         map.addLayer({
             id: "tracked",
             type: "heatmap",
-            source: "tracked"
+            source: "tracked",
+            maxzoom: 16
         });
     });
 
