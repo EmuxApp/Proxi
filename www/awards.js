@@ -246,6 +246,35 @@ awards.start = function() {
     awards.tick = setInterval(function() {
         awards.judge();
     }, 60 * 1000);
+
+    if (!navigator.onLine) {
+        navigator.notification.alert(
+            _("Please check your internet connection and try again."),
+            function() {},
+            _("Couldn't connect to the Proxi server")
+        );
+
+        $(".achievementsList").html("");
+
+        $(".achievementsList").append([
+            $("<h3 class='center'>").text(_("No internet?")),
+            $("<p class='center'>").text(_("Connect to the internet to see your acheivements, levels and points."))
+        ]);
+
+        $(".goalsList").html("");
+
+        $(".goalsList").append([
+            $("<h3 class='center'>").text(_("Can't see anything to win...")),
+            $("<p class='center'>").text(_("Again, connect to the internet to see your goals."))
+        ]);
+
+        $(".leaderboardList").html("");
+
+        $(".leaderboardList").append([
+            $("<h3 class='center'>").text(_("Who's in the lead?")),
+            $("<p class='center'>").text(_("Connect to the internet to see the leaderboard too!"))
+        ]);
+    }
 };
 
 awards.stop = function() {
