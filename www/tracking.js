@@ -314,10 +314,12 @@ tracking.toggleAlerts = function(mode = null) {
     if (tracking.alertsOn) {
         $("button.alerts").addClass("selected");
         $("button.alerts").attr("aria-label", _("Turn alerts off"));
+        $("button.alerts icon").text("location_on");
         $("p.alertsStatus").text(_("Currently alerting you"));
     } else {
         $("button.alerts").removeClass("selected");
         $("button.alerts").attr("aria-label", _("Turn alerts on"));
+        $("button.alerts icon").text("location_off");
         $("p.alertsStatus").text(_("Currently not alerting you"));
     }
 };

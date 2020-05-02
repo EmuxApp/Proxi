@@ -154,6 +154,11 @@ main.fillScreen iframe.content {
     height: calc(100vh - 40px);
 }
 
+main#home {
+    background-color: var(--dark);
+    color: var(--darkText);
+}
+
 header {
     text-align: center;
 }
@@ -172,23 +177,19 @@ header.home p.tagline {
 }
 
 header.home button.alerts {
-    background-color: var(--light);
-    color: var(--lightText);
+    background-color: var(--red);
+    color: var(--redText);
     font-size: 100px;
     border-radius: 100px;
 }
 
 header.home button.alerts:active {
-    filter: brightness(0.95);
+    filter: brightness(1.15);
 }
 
 header.home button.alerts.selected {
     background-color: var(--green);
     color: var(--greenText);
-}
-
-header.home button.alerts.selected:active {
-    filter: brightness(1.15);
 }
 
 header.home button.alerts icon {
@@ -199,7 +200,6 @@ header.home button.alerts icon {
 header.home p.alertsStatus {
     margin-top: 5px;
     margin-bottom: 5px;
-    color: var(--dark);
 }
 
 header.awards {
@@ -915,6 +915,11 @@ iframe.content {
         --greenText: white;
         --blue: #1d7eb9;
         --blueText: white;
+    }
+
+    main#home {
+        background-color: var(--background);
+        color: var(--text);
     }
 
     nav button:active {
