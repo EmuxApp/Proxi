@@ -119,14 +119,14 @@
             <button onclick="firstTime_accept();" class="red fillWidth" id="firstTime_accept">@Accept</button>
         </main>
         <main hidden class="fillScreen" id="firstTime_termsOfService">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('firstTime_termsOfService', 'firstTime_dataUsage');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Terms of Service</span>
             </nav>
             <iframe src="https://emux.app/embedded/proxiTerms_en_GB.html" class="content"></iframe>
         </main>
         <main hidden class="fillScreen" id="firstTime_privacyPolicy">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('firstTime_privacyPolicy', 'firstTime_dataUsage');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Privacy Policy</span>
             </nav>
@@ -159,8 +159,8 @@
         </main>
         <main hidden class="noNav" id="home">
             <header class="home">
-                <h1>@Proxi</h1>
-                <p class="tagline">@Keep your distance</p><br>
+                <img src="media/proxiTextWhite.svg" alt="@Proxi" />
+                <br>
                 <button onclick="tracking.toggleAlerts();" class="alerts" aria-label="@Turn alerts on"><icon aria-hidden="true">location_off</icon></button>
                 <p class="alertsStatus">@Currently not alerting you</p>
             </header>
@@ -182,7 +182,7 @@
             </section>
         </main>
         <main hidden id="home_alertMode">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('home_alertMode', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Alert mode</span>
             </nav>
@@ -318,7 +318,7 @@
             </div>
         </main>
         <main hidden id="home_familyContacts">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('home_familyContacts', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Family contacts</span>
             </nav>
@@ -333,7 +333,7 @@
             </div>
         </main>
         <main hidden id="home_dataSharing">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('home_dataSharing', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Data sharing</span>
             </nav>
@@ -354,7 +354,7 @@
             </div>
         </main>
         <main hidden id="map">
-            <nav>
+            <nav class="dark">
                 <button onclick="screens.moveBack('map', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Map</span>
             </nav>
@@ -365,7 +365,7 @@
             </div>
         </main>
         <main hidden id="awards">
-            <nav class="red">
+            <nav class="dark">
                 <button onclick="screens.moveBack('awards', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Awards</span>
             </nav>
@@ -388,7 +388,7 @@
             </div>
         </main>
         <main hidden id="awards_achievement">
-            <nav class="red">
+            <nav class="dark">
                 <button onclick="screens.moveBack('awards_achievement', 'awards');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@View achievement</span>
             </nav>
@@ -404,7 +404,7 @@
             </div>
         </main>
         <main hidden id="settings">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Settings</span>
             </nav>
@@ -413,8 +413,8 @@
                     <img src="media/profile.svg" alt="" class="profile myProfile" />
                     <h1 class="fullNameOrUsername"></h1>
                     <p class="usernameOrNone"></p>
-                    <button onclick="screens.moveForward('settings', 'settings_editInfoSensitive');" class="green">@Edit info</button>
-                    <button onclick="signOut();" class="green">@Sign out</button>
+                    <button onclick="screens.moveForward('settings', 'settings_editInfoSensitive');" class="dark">@Edit info</button>
+                    <button onclick="signOut();" class="dark">@Sign out</button>
                 </header>
                 <section class="options">
                     <button onclick="screens.moveForward('settings', 'settings_reportInfection');">
@@ -453,7 +453,7 @@
             </div>
         </main>
         <main hidden id="settings_editInfoSensitive">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_editInfoSensitive', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Edit info</span>
             </nav>
@@ -468,7 +468,7 @@
             </div>
         </main>
         <main hidden id="settings_editInfo">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_editInfo', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Edit info</span>
             </nav>
@@ -503,7 +503,7 @@
             </div>
         </main>
         <main hidden id="settings_changePassword">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_changePassword', 'settings_editInfo');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Change password</span>
             </nav>
@@ -520,7 +520,7 @@
             </div>
         </main>
         <main hidden id="settings_deleteAccount">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_deleteAccount', 'settings_editInfo');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Delete account</span>
             </nav>
@@ -547,7 +547,7 @@
             </div>
         </main>
         <main hidden id="settings_reportInfection">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_reportInfection', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Report infection</span>
             </nav>
@@ -574,7 +574,7 @@
             </div>
         </main>
         <main hidden id="settings_yourData">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_yourData', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Your data</span>
             </nav>
@@ -618,7 +618,7 @@
             </div>
         </main>
         <main hidden id="settings_dataRetrieval">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_dataRetrieval', 'settings_yourData');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Data retrieval</span>
             </nav>
@@ -627,7 +627,7 @@
             </div>
         </main>
         <main hidden id="settings_geolocationOptions">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_geolocationOptions', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Geolocation</span>
             </nav>
@@ -666,7 +666,7 @@
             </div>
         </main>
         <main hidden id="settings_geolocationOptionsEnterAddress">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_geolocationOptionsEnterAddress', 'settings_geolocationOptions');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Home address</span>
             </nav>
@@ -676,7 +676,7 @@
             </div>
         </main>
         <main hidden id="settings_aboutProxi">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_aboutProxi', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@About Proxi</span>
             </nav>
@@ -693,21 +693,21 @@
             </div>
         </main>
         <main hidden id="settings_termsOfService">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_termsOfService', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Terms of Service</span>
             </nav>
             <iframe src="https://emux.app/embedded/proxiTerms_en_GB.html" class="content"></iframe>
         </main>
         <main hidden id="settings_privacyPolicy">
-            <nav class="green">
+            <nav class="dark">
                 <button onclick="screens.moveBack('settings_privacyPolicy', 'settings');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Privacy Policy</span>
             </nav>
             <iframe src="https://emux.app/embedded/proxiPrivacy_en_GB.html" class="content"></iframe>
         </main>
         <main hidden id="infectionAlert">
-            <nav class="red">
+            <nav class="dark">
                 <button onclick="screens.moveBack('infectionAlert', 'home');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
                 <span>@Infection alert</span>
             </nav>
@@ -824,8 +824,7 @@
             </a>
         </footer>
         <div id="loader">
-            <img src="media/proxi.svg" alt="@Proxi is loading..." />
-            <h1>@Proxi</h1>
+            <img src="media/proxiTextBlue.svg" alt="@Proxi" />
             <p>@Keep your distance</p>
         </div>
     </body>
