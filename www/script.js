@@ -131,6 +131,8 @@ function firstTime_signIn() {
                     function() {},
                     _("We have a bit of a problem...")
                 );
+
+                navigator.notification.alert(error.code + ", " + error.message);
             }
         });
     } else {
