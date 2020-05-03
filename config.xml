@@ -26,13 +26,7 @@
     <preference name="target-device" value="handset" />
     <preference name="orientation" value="portrait" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <access origin="*" />
+    <allow-intent href="*" />
     <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
