@@ -12,11 +12,11 @@
     --text: black;
     --light: #e8eef2;
     --lightText: black;
-    --dark: #0c607d;
+    --dark: #373f51;
     --darkText: white;
-    --red: #fd5f60;
+    --red: #f75590;
     --redText: white;
-    --green: #12e0b3;
+    --green: #10ffcb;
     --greenText: black;
     --blue: #20a4f3;
     --blueText: white;
@@ -154,11 +154,6 @@ main.fillScreen iframe.content {
     height: calc(100vh - 40px);
 }
 
-main#home {
-    background-color: var(--dark);
-    color: var(--darkText);
-}
-
 header {
     text-align: center;
 }
@@ -167,26 +162,33 @@ header.home {
     margin-bottom: 30px;
 }
 
-header.home img {
-    height: 5vh;
-    margin-top: 20px;
-    margin-bottom: 30px;
+header.home h1 {
+    margin-bottom: 0;
+}
+
+header.home p.tagline {
+    margin-top: 0;
+    font-size: 16px;
 }
 
 header.home button.alerts {
-    background-color: var(--red);
-    color: var(--redText);
+    background-color: var(--light);
+    color: var(--lightText);
     font-size: 100px;
     border-radius: 100px;
 }
 
 header.home button.alerts:active {
-    filter: brightness(1.15);
+    filter: brightness(0.95);
 }
 
 header.home button.alerts.selected {
     background-color: var(--green);
     color: var(--greenText);
+}
+
+header.home button.alerts.selected:active {
+    filter: brightness(1.15);
 }
 
 header.home button.alerts icon {
@@ -197,6 +199,7 @@ header.home button.alerts icon {
 header.home p.alertsStatus {
     margin-top: 5px;
     margin-bottom: 5px;
+    color: var(--dark);
 }
 
 header.awards {
@@ -206,7 +209,7 @@ header.awards {
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: rgba(12, 96, 125, 0.2);
+    background-color: rgba(247, 85, 144, 0.2);
 }
 
 header.awards img.level {
@@ -223,7 +226,7 @@ header.settings {
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: rgba(12, 96, 125, 0.2);
+    background-color: rgba(16, 255, 203, 0.2);
 }
 
 header.settings img.profile {
@@ -859,15 +862,18 @@ iframe.content {
 }
 
 #loader img {
-    width: 60vw;
+    height: 20vh;
+}
+
+#loader h1 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 48px;
 }
 
 #loader p {
     margin-top: 0;
     margin-bottom: 0;
-    color: var(--dark);
-    font-size: 20px;
-    font-weight: bold;
 }
 
 #about {
@@ -901,19 +907,14 @@ iframe.content {
         --text: white;
         --light: #17110d;
         --lightText: white;
-        --dark: #0c607d;
-        --darkText: white;
+        --dark: #b7c4e0;
+        --darkText: black;
         --red: #a84267;
         --redText: white;
         --green: #0f9a7c;
         --greenText: white;
         --blue: #1d7eb9;
         --blueText: white;
-    }
-
-    main#home {
-        background-color: var(--background);
-        color: var(--text);
     }
 
     nav button:active {
