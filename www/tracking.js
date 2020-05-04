@@ -12,6 +12,7 @@ const TRACKED_TIMEOUT = 30 * 1000; // 30 seconds
 const SPREAD_TIME = 2 * 60 * 1000; // 2 minutes
 const PREVIOUS_CONTACT_PERIOD = 7 * 24 * 60 * 60 * 1000; // 1 week
 const FAMILY_RESCAN_INTERVAL = 10 * 60 * 1000; // 10 minutes
+const SLEEP_TIMEOUT = 10 * 1000; // 10 seconds
 
 var tracking = {
     alertsOn: false,
@@ -26,7 +27,8 @@ var tracking = {
     aid: null, // Anonymous ID, used to identify user whilst keeping them anonymous
     justAlerted: true,
     alertedSince: null,
-    isInfected: false
+    isInfected: false,
+    sleepTimeout: null
 };
 
 tracking.degreesToRadians = function(degrees) {
@@ -326,6 +328,30 @@ tracking.toggleAlerts = function(mode = null) {
     }
 };
 
+tracking.sleep = function() {
+    if ($("#home").attr("hidden") == null) {
+        $("body").addClass("sleep");
+    } else {
+        $("body").removeClass("sleep");
+    }
+};
+
+tracking.wake = function() {
+    $("body").removeClass("sleep");
+};
+
 setInterval(function() {
     tracking.rescanFamily();
 }, FAMILY_RESCAN_INTERVAL);
+
+$(function() {
+    $("*").on("click", function() {
+        tracking.wake();
+
+        clearInterval(tracking.sleepTimeout);
+
+        tracking.sleepTimeout = setTimeout(tracking.sleep, SLEEP_TIMEOUT);
+    });
+
+    tracking.sleepTimeout = setTimeout(tracking.sleep, SLEEP_TIMEOUT);
+});

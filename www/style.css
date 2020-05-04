@@ -34,6 +34,21 @@ html, body {
     user-select: none;
 }
 
+body.sleep {
+    --background: black;
+    --text: #707070;
+    --light: black;
+    --lightText: #707070;
+    --dark: #707070;
+    --darkText: black;
+    --red: #4b001b;
+    --redText: #707070;
+    --green: #005f4b;
+    --greenText: #707070;
+    --blue: #01395c;
+    --blueText: #707070;
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
     font-family: inherit;
