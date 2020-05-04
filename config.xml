@@ -31,6 +31,11 @@
     <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon density="mdpi" background="res/android/mipmap-mdpi/ic_launcher_background.png" foreground="res/android/mipmap-mdpi/ic_launcher_foreground.png" />
+        <icon density="hdpi" background="res/android/mipmap-hdpi/ic_launcher_background.png" foreground="res/android/mipmap-hdpi/ic_launcher_foreground.png" />
+        <icon density="xhdpi" background="res/android/mipmap-xhdpi/ic_launcher_background.png" foreground="res/android/mipmap-xhdpi/ic_launcher_foreground.png" />
+        <icon density="xxhdpi" background="res/android/mipmap-xxhdpi/ic_launcher_background.png" foreground="res/android/mipmap-xxhdpi/ic_launcher_foreground.png" />
+        <icon density="xxxhdpi" background="res/android/mipmap-xxxhdpi/ic_launcher_background.png" foreground="res/android/mipmap-xxxhdpi/ic_launcher_foreground.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
