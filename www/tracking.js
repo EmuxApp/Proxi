@@ -135,6 +135,8 @@ tracking.changeAlertingRange = function() {
 }
 
 tracking.start = function() {
+    window.plugins.insomnia.keepAwake();
+
     tracking.geolocationWatcher = navigator.geolocation.watchPosition(function(position) {
         tracking.currentLocation.latitude = position.coords.latitude;
         tracking.currentLocation.longitude = position.coords.longitude;
@@ -302,6 +304,8 @@ tracking.stop = function() {
     localStorage.removeItem("inContact");
 
     tracking.toggleAlerts(false);
+
+    window.plugins.insomnia.allowSleepAgain();
 };
 
 tracking.toggleAlerts = function(mode = null) {
