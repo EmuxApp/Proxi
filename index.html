@@ -1,11 +1,84 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Proxi</title>
-        <link rel="manifest" href="manifest.json">
+        <title>@Proxi</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <meta name="description" content="Ensure that you keep your distance from others through alerts and tracking.">
+        <link rel="shortcut icon" href="/www/media/proxi.png">
+        <link rel="stylesheet" href="/www/lib/font.css">
+        <link rel="stylesheet" href="/www/style.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="manifest" href="/manifest.json">
+        <script src="/www/lib/jquery.min.js"></script>
+        <script src="/www/core.js"></script>
+        <script src="/www/lang.js"></script>
+        <script src="/www/screens.js"></script>
+        <script src="/www/lang/en_GB.js"></script>
+        <script src="script.js"></script>
     </head>
     <body>
-        <h1>Proxi</h1>
-        <p>Currently in development. More coming soon!</p>
+        <main class="fillScreen" id="storefront">
+            <img src="/storefront/feature.png" class="feature" alt="@A collage of screenshots from the Proxi app." />
+            <img src="/www/media/proxi.svg" class="icon" alt="@The Proxi logo.">
+            <div class="title">
+                <h1>@Proxi</h1>
+                <p>
+                    @Ensure that you keep your distance from others through alerts
+                    and tracking.
+                </p>
+            </div>
+            <div class="screenshots">
+                <img src="/storefront/screenshot1.png" alt="@Be alerted when people are nearby" />
+                <img src="/storefront/screenshot2.png" alt="@See where people are in your area" />
+                <img src="/storefront/screenshot3.png" alt="@Get awards for doing great things" />
+                <img src="/storefront/screenshot4.png" alt="@Easily manage your settings" />
+                <img src="/storefront/screenshot5.png" alt="@Help track the spread of COVID-19" />
+                <img src="/storefront/screenshot6.png" alt="@Save battery by dimming your screen" />
+            </div>
+            <div>
+                <button onclick="installApp();" class="fillWidth green">Install</button>
+            </div>
+            <div>
+                <p>
+                    <span>@Help others around you to keep their distance through Proxi. You can use Proxi to:</span>
+                    <ul>
+                        <li>@Be reminded through vibrations and audible alerts when other users with the Proxi app come within 3m of you</li>
+                        <li>@View a heatmap of busy spots in cities so you can know which places to avoid</li>
+                        <li>@Gain virtual awards for keeping safe in the community</li>
+                        <li>@Add family contacts so that you don't get alerted when your family is nearby</li>
+                        <li>@Set your home address so your location isn't shared when you're at home</li>
+                    </ul>
+                </p>
+                <p>@Proxi is proud to be one of the few tracking apps that respects your privacy. We handle your data in strict conformance with our Privacy Policy, viewable at <a href="https://emux.app/privacy" target="_blank">emux.app/privacy</a>.</p>
+            </div>
+            <div class="card">
+                <p><strong>@Proxi is still in-development!</strong></p>
+                <p>@Any feedback and suggestions are most welcome. To contact us, just send an email over to <a href="mailto:hi@emux.app" target="_blank">hi@emux.app</a>!</p>
+                <p>@Proxi is currently intended for UK audiences, however international users are most welcome. International users should be aware that Proxi contains some information that is intended for UK audiences only, and that such users should seek alternative advice for their local area. We are hoping to include international information and translations to Proxi soon.</p>
+            </div>
+            <div class="legal">
+                <img src="/www/media/emuxText.svg" alt="@Emux logo" /><br>
+                <small>App distributed by Emux Technologies Limited</small><br>
+                <small>Copyright &copy; Emux Technologies. All Rights Reserved. Emux Technologies is a trade name of Emux Technologies Limited registered in the United Kingdom.</small>
+            </div>
+            <div class="center">
+                <p><a href="https://emux.app" target="_blank">@emux.app</a></p>
+            </div>
+        </main>
+        <main hidden class="fillScreen" id="installation">
+            <nav class="green">
+                <button onclick="screens.moveBack('installation', 'storefront');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Install Proxi</span>
+            </nav>
+            <div class="content android">
+                <img src="/androidTutorial.svg" alt="@1. Press the menu button in the corner of Chrome. 2. Press the Add to Home Screen button. 3. Press Add (now Proxi will be on your home screen)." />
+                <button onclick="window.location.href = '/www/index.html';" class="fillWidth">@Launch Proxi anyway</button>
+            </div>
+            <div class="content ios">
+                <img src="/iosTutorial.svg" alt="@1. Press the button below to launch Proxi. 2. Press the Share button in Safari. 3. Press Add to Home Screen (scroll down to see it). 4. Press Add (now Proxi will be on your home screen)." />
+                <button onclick="window.location.href = '/www/index.html';" class="fillWidth">@Launch Proxi</button>
+            </div>
+        </main>
     </body>
 </html>
