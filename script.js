@@ -13,7 +13,13 @@ function installApp() {
     if (installPrompt != null) {
         installPrompt.prompt();
 
-        installPrompt = null;
+        installPrompt.userChoice.then(function(result) {
+            if (result.outcome == "dismissed") {
+                screens.moveForward("storefront", "installation");
+            }
+
+            installPrompt = null;
+        });
     } else {
         screens.moveForward("storefront", "installation");
     }
