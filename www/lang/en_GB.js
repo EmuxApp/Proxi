@@ -7,7 +7,7 @@
     Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
 */
  
-lang.load("en-GB", {
+lang.load("en_GB", {
     name: "English (United Kingdom)",
     nameShort: "English",
     textDirection: "ltr",
@@ -26,6 +26,8 @@ lang.load("en-GB", {
             "{0} == `1`": "Won once, last won on {1}",
             "{0} == `2`": "Won twice, last won on {1}",
             "{0} != `1` && {0} != `2`": "Won {0} times, last won on {1}"
-        }
+        },
+        "If symptoms persist, please contact your local medical centre.": "If symptoms persist after 7 days, please visit <a href=\"javascript:window.open('https://111.nhs.uk');\">NHS 111 online</a>. If it is an emergency, please dial 999.",
+        "If you feel unwell, visit your local medical centre's website for advice.": "If you feel unwell, do not go to your GP or hospital. Instead, visit <a href=\"javascript:window.open('https://111.nhs.uk');\">NHS 111 online</a>. Only call NHS 111 if you cannot get help online. If it is an emergency, please dial 999."
     }
 });

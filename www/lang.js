@@ -48,7 +48,7 @@ var lang = {
         if (localStorage.getItem("lang") != null) {
             return localStorage.getItem("lang");
         } else {
-            return navigator.language;
+            return navigator.language.replace(/-/g, "_");
         }
     },
  
@@ -181,10 +181,6 @@ if (core.getURLParameter("lang") != null) {
     } else {
         lang.language = navigator.language;
     }
-}
-  
-if ((lang.language == "en_AU" || lang.language == "en_US") && lang.locales[lang.language] == undefined) {
-    lang.language = "en_GB";
 }
  
 $("html, body").css("display", "none");

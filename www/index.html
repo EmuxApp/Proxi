@@ -37,7 +37,12 @@
         <script src="awards.js"></script>
         <script src="alerts.js"></script>
         <script src="script.js"></script>
+        <script src="lang/en_AU.js"></script>
+        <script src="lang/en_CA.js"></script>
         <script src="lang/en_GB.js"></script>
+        <script src="lang/en_NZ.js"></script>
+        <script src="lang/en_US.js"></script>
+        <script src="lang/en_ZA.js"></script>
     </head>
     <body>
         <main hidden class="fillScreen center hasBottomButton" id="firstTime_intro">
@@ -570,9 +575,7 @@
                     stop the spread of COVID-19.
                 </p>
                 <p><strong>
-                    @If symptoms persist after 7 days, please visit
-                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
-                    If it is an emergency, please dial 999.
+                    @If symptoms persist, please contact your local medical centre.
                 </strong></p>
                 <button onclick="settings_reportInfectionFinal();" class="bottom">@Report COVID-19 infection</button>
             </div>
@@ -734,9 +737,7 @@
                 </p>
                 <p><a href="javascript:screens.moveForward('infectionAlert', 'infectionAlert_learnMore');" class="implied"><span class="red">@Learn more</span></a></p>
                 <p><strong>
-                    @If symptoms persist after 7 days, please visit
-                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
-                    If it is an emergency, please dial 999.
+                    @If symptoms persist, please contact your local medical centre.
                 </strong></p>
                 <p><small>
                     @Proxi is not endorsed or otherwise affiliated with the NHS.
@@ -778,11 +779,7 @@
                 </ul>
                 <h2>@What should I do if I feel unwell?</h2>
                 <p>
-                    @If you feel unwell, do not go to your GP or hospital.
-                    Instead, visit
-                    <a href="javascript:window.open('https://111.nhs.uk');">NHS 111 online</a>.
-                    Only call NHS 111 if you cannot get help online. If it is
-                    an emergency, please dial 999.
+                    @If you feel unwell, visit your local medical centre's website for advice.
                 </p>
                 <h2>@I/a family member has experienced symptoms of COVID-19. How long do I have to stay inside for?</h2>
                 <p>
