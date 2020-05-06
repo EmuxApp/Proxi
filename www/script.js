@@ -862,7 +862,7 @@ function family_newMemberList() {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-document.addEventListener("deviceready", function() {
+function appReady() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             currentUser.uid = user.uid;
@@ -928,4 +928,10 @@ document.addEventListener("deviceready", function() {
             $("#loader").fadeOut(500);
         }, 1000);
     });
-}, false);
+}
+
+document.addEventListener("deviceready", appReady, false);
+
+if (window.location.href.startsWith("https://") || window.location.href.startsWith("http://")) { // Features for PWA version
+    appReady();
+}

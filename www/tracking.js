@@ -137,7 +137,9 @@ tracking.changeAlertingRange = function() {
 }
 
 tracking.start = function() {
-    window.plugins.insomnia.keepAwake();
+    if (!(window.location.href.startsWith("https://") || window.location.href.startsWith("http://"))) { // Features for native version
+        window.plugins.insomnia.keepAwake();
+    }
 
     tracking.geolocationWatcher = navigator.geolocation.watchPosition(function(position) {
         tracking.currentLocation.latitude = position.coords.latitude;
@@ -307,7 +309,9 @@ tracking.stop = function() {
 
     tracking.toggleAlerts(false);
 
-    window.plugins.insomnia.allowSleepAgain();
+    if (!(window.location.href.startsWith("https://") || window.location.href.startsWith("http://"))) { // Features for native version
+        window.plugins.insomnia.allowSleepAgain();
+    }
 };
 
 tracking.toggleAlerts = function(mode = null) {
