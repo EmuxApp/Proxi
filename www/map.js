@@ -71,6 +71,8 @@ $(function() {
             source: "tracked",
             maxzoom: 16
         });
+
+        map.setPaintProperty("tracked", "heatmap-opacity", 0.5);
     });
 
     map.on("moveend", function() {
