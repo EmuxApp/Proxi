@@ -378,7 +378,7 @@ function settings_changeUsername() {
                                     function() {},
                                     _("Couldn't change username")
                                 );
-                            });;
+                            });
                         } else {
                             navigator.notification.alert(
                                 _("There is already an account with that username. Try another one!"),

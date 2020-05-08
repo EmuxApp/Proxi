@@ -45,13 +45,11 @@ tracking.calculateDistance = function(lat1, long1, lat2, long2) {
     var latChange = tracking.degreesToRadians(lat2 - lat1);
     var longChange = tracking.degreesToRadians(long2 - long1);
     
-    var a = Math.pow(Math.sin(latChange / 2), 2) +
-        (
-            Math.cos(tracking.degreesToRadians(lat1)) *
-            Math.cos(tracking.degreesToRadians(lat2)) *
-            Math.pow(Math.sin(longChange / 2), 2)
-        )
-    ;
+    var a = Math.pow(Math.sin(latChange / 2), 2) + (
+        Math.cos(tracking.degreesToRadians(lat1)) *
+        Math.cos(tracking.degreesToRadians(lat2)) *
+        Math.pow(Math.sin(longChange / 2), 2)
+    );
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     
     return EARTH_RADIUS * c; // In metres
@@ -349,12 +347,18 @@ setInterval(function() {
 }, FAMILY_RESCAN_INTERVAL);
 
 $(function() {
+    var noSleepActivated = false;
+
     $("*").on("click", function() {
         tracking.wake();
 
         clearInterval(tracking.sleepTimeout);
 
         tracking.sleepTimeout = setTimeout(tracking.sleep, SLEEP_TIMEOUT);
+
+        if (!noSleepActivated) {
+            new NoSleep().enable();
+        }
     });
 
     tracking.sleepTimeout = setTimeout(tracking.sleep, SLEEP_TIMEOUT);
