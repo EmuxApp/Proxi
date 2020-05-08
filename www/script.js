@@ -965,6 +965,14 @@ $(function() {
             });
         });
     });
+
+    if (window.location.href.startsWith("https://") || window.location.href.startsWith("http://")) { // Features for PWA version
+        if (navigator.userAgent.toLowerCase().indexOf("android") > -1) { // Android
+            $(".connectErrorInstructions").html(_("To fix permission issues, open Chrome, visit https://emux.proxi.app, tap the padlock (top-left), press <em>Site settings</em>, then press <em>Location access</em> and finally <em>Allow</em>. Then come back here and try again!"));
+        } else {
+            $(".connectErrorInstructions").html(_("To fix permission issues, open Settings, find and press <em>Safari</em>, then press <em>Location</em> and finally <em>Allow</em>. Then come back here and try again!"));
+        }
+    }
 });
 
 document.addEventListener("deviceready", appReady, false);
