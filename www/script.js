@@ -437,33 +437,35 @@ function settings_changeFullName() {
 }
 
 function settings_changeProfilePicture() {
-    navigator.camera.getPicture(function(dataUrl) {
-        console.log(dataUrl);
-
-        firebase.storage().ref("users/" + currentUser.uid + "/profile.png").putString("data:image/png;base64," + dataUrl, "data_url").then(function() {
-            $(".myProfile").attr("src", "data:image/png;base64," + dataUrl);
-            
-            firebase.database().ref("users/" + currentUser.uid + "/profileImageType").set("png");
-        }).catch(function() {
-            setTimeout(function() {
-                navigator.notification.alert(
-                    _("Check your connection to the internet or try choosing a smaller picture."),
-                    function() {},
-                    _("Couldn't change profile picture")
-                );
+    if (window.location.href.startsWith("https://") || window.location.href.startsWith("http://")) { // Features for PWA version
+        $("#settings_changeProfilePicture_fileUpload").click();
+    } else {
+        navigator.camera.getPicture(function(dataUrl) {
+            firebase.storage().ref("users/" + currentUser.uid + "/profile.png").putString("data:image/png;base64," + dataUrl, "data_url").then(function() {
+                $(".myProfile").attr("src", "data:image/png;base64," + dataUrl);
+                
+                firebase.database().ref("users/" + currentUser.uid + "/profileImageType").set("png");
+            }).catch(function() {
+                setTimeout(function() {
+                    navigator.notification.alert(
+                        _("Check your connection to the internet or try choosing a smaller picture."),
+                        function() {},
+                        _("Couldn't change profile picture")
+                    );
+                });
             });
+        }, function() {}, {
+            quality: 100,
+            targetWidth: 100,
+            targetHeight: 100,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            encodingType: Camera.EncodingType.PNG,
+            mediaType: Camera.MediaType.PICTURE,
+            allowEdit: true,
+            correctOrientation: true
         });
-    }, function() {}, {
-        quality: 100,
-        targetWidth: 100,
-        targetHeight: 100,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        encodingType: Camera.EncodingType.PNG,
-        mediaType: Camera.MediaType.PICTURE,
-        allowEdit: true,
-        correctOrientation: true
-    });
+    }
 }
 
 function settings_changePassword() {
@@ -929,6 +931,41 @@ function appReady() {
         }, 1000);
     });
 }
+
+$(function() {
+    $("#settings_changeProfilePicture_fileUpload").on("change", function(event) {
+        var file = event.target.files[0];
+
+        if (file.name.endsWith(".png") || file.name.endsWith(".jpg") || file.name.endsWith(".svg")) {
+            
+        } else {
+            navigator.notification.alert(
+                _("Please make sure that the file you have chosen is a picture."),
+                function() {},
+                _("Couldn't change profile picture")
+            );
+        }
+
+        firebase.storage().ref("users/" + currentUser.uid + "/profile." + file.name.split(".").slice(1).pop()).put(file).then(function() {
+            firebase.database().ref("users/" + currentUser.uid + "/profileImageType").set(file.name.split(".").slice(1).pop());
+
+            var reader = new FileReader();
+
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                $(".myProfile").attr("src", reader.result);
+            }
+        }).catch(function() {
+            setTimeout(function() {
+                navigator.notification.alert(
+                    _("Check your connection to the internet or try choosing a smaller picture."),
+                    function() {},
+                    _("Couldn't change profile picture")
+                );
+            });
+        });
+    });
+});
 
 document.addEventListener("deviceready", appReady, false);
 
