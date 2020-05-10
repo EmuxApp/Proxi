@@ -167,7 +167,7 @@ tracking.start = function() {
                     );
 
                     if (currentFamilyAids.indexOf(tracked[i].aid) < 0) {
-                        if (nearestDistance == null || distance > nearestDistance) {
+                        if (nearestDistance == null || distance < nearestDistance) {
                             nearestDistance = distance;
                             nearestAid = tracked[i].aid;
                         }
