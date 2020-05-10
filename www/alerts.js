@@ -53,7 +53,9 @@ alerts.fire = function() {
     }
 
     if (alerts.modes[alerts.currentMode].type == "vibrate") {
-        navigator.vibrate(1000);
+        if ("vibrate" in navigator) {
+            navigator.vibrate(1000);
+        }
     } else if (alerts.modes[alerts.currentMode].type == "sound") {
         alerts.currentAudio = new Audio(alerts.modes[alerts.currentMode].src);
         
@@ -88,5 +90,13 @@ alerts.set = function(mode = 0, fireAfterSetting = false) {
 };
 
 $(function() {
+    if (!("vibrate" in navigator)) {
+        if (localStorage.getItem("alertsMode") == 0 || localStorage.getItem("alertsMode") == null) {
+            localStorage.setItem("alertsMode", 2);
+
+            $(".vibrateAlertMode").hide();
+        }
+    }
+
     alerts.set(Number(localStorage.getItem("alertsMode") || 0));
 });
