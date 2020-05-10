@@ -175,10 +175,16 @@ tracking.start = function() {
                 }
             }
 
+            console.log("Found nearest device, " + nearestDistance + " metres away");
+
             if (nearestDistance != null && nearestDistance <= Number(localStorage.getItem("alertingRange") || 6) + 2) {
+                console.log("Nearest device within alerting range");
+
                 if (!tracking.justAlerted) {
                     if (tracking.alertsOn) {
                         alerts.fire();
+
+                        console.log("Alert fired");
                     }
                     
                     tracking.alertedSince = new Date().getTime();

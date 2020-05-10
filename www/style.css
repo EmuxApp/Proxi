@@ -687,6 +687,16 @@ button.blue {
     color: var(--blueText);
 }
 
+button.secret {
+    background-color: transparent;
+    color: transparent;
+}
+
+button.secret:active {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
 button.fillWidth {
     width: 100%;
 }

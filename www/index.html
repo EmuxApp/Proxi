@@ -698,6 +698,16 @@
                 <p>@Copyright &copy; Emux Technologies. All Rights Reserved.</p>
                 <p aria-label="@Made with love in Norwich, United Kingdom">@Made with &#x2764; in Norwich, United Kingdom</p>
                 <p>Visit our site at <a href="javascript:window.open('https://emux.app');">emux.app</a></p>
+                <button onclick="screens.moveForward('settings_aboutProxi', 'settings_aboutDevelopers');" class="secret fillWidth">@Super secret stats</button>
+            </div>
+        </main>
+        <main hidden id="settings_aboutDevelopers">
+            <nav class="green">
+                <button onclick="screens.moveBack('settings_aboutDevelopers', 'settings_aboutProxi');"><icon class="flippable" aria-hidden="true">arrow_back_ios</icon> <span>@Back</span></button>
+                <span>@Secret stats 🤫</span>
+            </nav>
+            <div class="content">
+                <pre id="settings_aboutDevelopersLog"></pre>
             </div>
         </main>
         <main hidden id="settings_termsOfService">

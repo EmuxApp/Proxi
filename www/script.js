@@ -34,6 +34,22 @@ var currentFamilyReference = null;
 var currentFamily = [];
 var currentFamilyAids = [];
 
+var console = {};
+
+console.log = function() {
+    $("#settings_aboutDevelopersLog").text($("#settings_aboutDevelopersLog").text() + "LOG: " + Array.prototype.slice.call(arguments).join(" ") + "\n");
+};
+
+console.warn = function() {
+    $("#settings_aboutDevelopersLog").text($("#settings_aboutDevelopersLog").text() + "WARN: " + Array.prototype.slice.call(arguments).join(" ") + "\n");
+};
+
+console.error = function() {
+    $("#settings_aboutDevelopersLog").text($("#settings_aboutDevelopersLog").text() + "ERROR: " + Array.prototype.slice.call(arguments).join(" ") + "\n");
+};
+
+window.console = console;
+
 function firstTime_validateAccount() {
     if ($("#firstTime_username").val().match(/^[a-zA-Z0-9]{1,20}$/) && $("#firstTime_password").val().length >= 6) {
         $("#firstTime_validateAccount").prop("disabled", true);
@@ -973,6 +989,21 @@ $(function() {
             $(".connectErrorInstructions").html(_("To fix permission issues, open Settings, find and press <em>Safari</em>, then press <em>Location</em> and finally <em>Allow</em>. Then come back here and try again!"));
         }
     }
+
+    var superSecretMessages = [
+        "James was here!",
+        "Why hello, developer!",
+        "5,000+ lines of code!",
+        "HtMl iS a PrOgRaMmInG lAnGuAgE!!1!11!",
+        "JS FTW!",
+        "Seriously Apple, fix your browser!",
+        "Made by a bunch of teenagers™!",
+        "There are 10 types of people in this world: those who know binary and those who don't!",
+        "Well I never... Didn't know you're a developer!",
+        "More super secret messages coming soon!"
+    ];
+    
+    console.log(superSecretMessages[Math.floor(Math.random() * superSecretMessages.length)]);
 });
 
 document.addEventListener("deviceready", appReady, false);
