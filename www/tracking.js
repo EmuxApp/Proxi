@@ -175,7 +175,9 @@ tracking.start = function() {
                 }
             }
 
-            console.log("Found nearest device, " + nearestDistance + " metres away");
+            if (nearestDistance != null) {
+                console.log("Found nearest device, " + nearestDistance + " metres away, AID " + nearestAid);
+            }
 
             if (nearestDistance != null && nearestDistance <= Number(localStorage.getItem("alertingRange") || 6) + 2) {
                 console.log("Nearest device within alerting range");
@@ -221,6 +223,8 @@ tracking.start = function() {
                 firebase.database().ref("users/" + currentUser.uid + "/outSince").set(new Date().getTime());
 
                 firebase.database().ref("users/" + currentUser.uid + "/awards/statistics/beenIn10mContact").set(null);
+
+                console.log("Assigned AID " + localStorage.getItem("trackingAid"));
             } else {
                 tracking.sendLocation();
             }
