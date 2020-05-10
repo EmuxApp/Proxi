@@ -73,6 +73,8 @@ alerts.fire = function() {
         
         alerts.currentAudio.play();
     }
+
+    console.log("Alert " + alerts.currentMode + " played");
 };
 
 alerts.set = function(mode = 0, fireAfterSetting = false) {
