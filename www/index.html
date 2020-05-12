@@ -197,10 +197,14 @@
                 <span>@Alert mode</span>
             </nav>
             <div class="content">
-                <section class="options vibrateAlertMode">
-                    <button onclick="alerts.set(0, true);">
+                <section class="options">
+                    <button onclick="alerts.set(0, true);" class="vibrateAlertMode">
                         <span>@Vibrate</span>
                         <icon data-alert="0" class="alertsCheckmark" aria-label="@Enabled">done</icon>
+                    </button>
+                    <button onclick="alerts.set(31, true);">
+                        <span>@Visible flash</span>
+                        <icon data-alert="31" class="alertsCheckmark" aria-label="@Enabled">done</icon>
                     </button>
                 </section>
                 <section class="options">

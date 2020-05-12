@@ -40,6 +40,7 @@ var alerts = {
         {type: "sound", name: _("Toilet flush"), src: "media/sounds/toiletFlush.mp3"},
         {type: "sound", name: _("Turkey"), src: "media/sounds/turkey.mp3"},
         {type: "sound", name: _("UFO"), src: "media/sounds/ufo.mp3"},
+        {type: "flash", name: _("Visible flash")}
     ],
     currentMode: 0,
     currentAudio: null
@@ -72,6 +73,21 @@ alerts.fire = function() {
         alerts.currentAudio = new Audio(filteredModes[Math.floor(Math.random() * filteredModes.length)].src);
         
         alerts.currentAudio.play();
+    } else if (alerts.modes[alerts.currentMode].type == "flash") {
+        var repetition = 0;
+        var repetitionInterval = setInterval(function() {
+            if (repetition % 2 == 0) {
+                $("body").addClass("alertFlash");
+            } else {
+                $("body").removeClass("alertFlash");
+            }
+
+            if (repetition == 3) {
+                clearInterval(repetitionInterval);
+            }
+
+            repetition++;
+        }, 500);
     }
 
     console.log("Alert " + alerts.currentMode + " played");
@@ -96,7 +112,7 @@ $(function() {
         if (localStorage.getItem("alertsMode") == 0 || localStorage.getItem("alertsMode") == null) {
             localStorage.setItem("alertsMode", 2);
 
-            $(".vibrateAlertMode").hide();
+            $(".vibrateAlertMode").remove();
         }
     }
 

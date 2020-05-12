@@ -49,6 +49,11 @@ body.sleep {
     --blueText: #707070;
 }
 
+body.alertFlash main#home {
+    background-color: var(--red)!important;
+    color: var(--redText)!important;
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
     font-family: inherit;
