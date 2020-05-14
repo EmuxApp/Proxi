@@ -165,7 +165,6 @@ $(function() {
  
     setTimeout(function() {
         $("html").attr("dir", lang.languageData.textDirection);
-        $("html, body").css("display", "unset");
     });
 });
  
@@ -182,5 +181,3 @@ if (core.getURLParameter("lang") != null) {
         lang.language = navigator.language;
     }
 }
- 
-$("html, body").css("display", "none");
