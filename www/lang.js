@@ -48,7 +48,7 @@ var lang = {
         if (localStorage.getItem("lang") != null) {
             return localStorage.getItem("lang");
         } else {
-            return navigator.language[0] + navigator.language[1] + "_" + (navigator.language[2] + navigator.language[3]).toUpperCase();
+            return navigator.language[0] + navigator.language[1] + "_" + (navigator.language[3] + navigator.language[4]).toUpperCase();
         }
     },
  
