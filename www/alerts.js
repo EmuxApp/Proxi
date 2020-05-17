@@ -108,7 +108,7 @@ alerts.set = function(mode = 0, fireAfterSetting = false) {
 };
 
 $(function() {
-    if (!("vibrate" in navigator)) {
+    if (!("vibrate" in navigator) || /iPad|iPhone|iPod/.test(navigator.userAgent)) {
         if (localStorage.getItem("alertsMode") == 0 || localStorage.getItem("alertsMode") == null) {
             localStorage.setItem("alertsMode", 2);
 
