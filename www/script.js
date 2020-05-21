@@ -1000,7 +1000,11 @@ $(function() {
         "Made by a bunch of teenagers™!",
         "There are 10 types of people in this world: those who know binary and those who don't!",
         "Well I never... Didn't know you're a developer!",
-        "More super secret messages coming soon!"
+        "More super secret messages coming soon!",
+        "CSSified!",
+        "Clearly, something's gone wrong... Why else would you be here?!",
+        "Typed by a human!",
+        "Made in Norwich!"
     ];
     
     console.log(superSecretMessages[Math.floor(Math.random() * superSecretMessages.length)]);
