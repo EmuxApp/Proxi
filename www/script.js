@@ -1004,7 +1004,9 @@ $(function() {
         "CSSified!",
         "Clearly, something's gone wrong... Why else would you be here?!",
         "Typed by a human!",
-        "Made in Norwich!"
+        "Made in Norwich!",
+        "Made by a team of just 4 people!",
+        "Made for good, not for money!"
     ];
     
     console.log(superSecretMessages[Math.floor(Math.random() * superSecretMessages.length)]);
