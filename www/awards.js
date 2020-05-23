@@ -4,7 +4,7 @@
     Copyright (C) Emux Technologies. All Rights Reserved.
  
     https://emux.app
-    Licenced by the Emux Closed-Source Licence, which can be found at LICENCE.md.
+    Licenced by the Proxi Terms of Service, which can be found at https://emux.app/terms.
 */
 
 const AWARD_COOLDOWN_PERIOD = 12 * 60 * 60 * 1000; // 12 hours
