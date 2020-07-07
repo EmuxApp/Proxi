@@ -166,7 +166,7 @@ awards.start = function() {
         $(".levelText").text(_("Level {0}", [awards.getLP(awards.points).level]));
         $(".pointsText").text(_("{0} points", [awards.getLP(awards.points).points]));
 
-        $(".levelMedal").attr("src", awards.getLP(awards.points).level < 5 ? "media/levels/" + awards.getLP(awards.points).level + ".svg" : "media/levels/5.svg");
+        $(".levelMedal").attr("src", awards.getLP(awards.points).level < 10 ? "media/levels/" + awards.getLP(awards.points).level + ".svg" : "media/levels/10.svg");
         $(".pointsProgress").val(awards.getLP(awards.points).points);
 
         var achievementsWon = 0;
