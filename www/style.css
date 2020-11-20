@@ -347,6 +347,9 @@ footer a span {
     left: 0;
     width: 100%;
     font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 div.content {
